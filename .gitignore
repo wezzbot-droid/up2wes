@@ -3,3 +3,10 @@ __pycache__/
 .env
 *.log
 dataset/*.jsonl
+
+# Nunca versionar fontes RAW (podem conter PII)
+**/*_raw.md
+**/*raw*.md
+
+# Se você tiver uma pasta privada dentro do repo (opcional)
+dataset/private_raw/

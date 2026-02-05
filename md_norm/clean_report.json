@@ -1,0 +1,3593 @@
+{
+  "cirurgia\\abdomeagudo_abscessohepatico_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\abdomeagudo_apendiciteaguda_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\abdomeagudo_colangite_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\abdomeagudo_colecistite_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\abdomeagudo_coledocolitíase_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\abdomeagudo_colelitíase_raw.md": {
+    "lines_dropped": 1,
+    "email": 1,
+    "cpf_like": 1,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "cirurgia\\abdomeagudo_complicacoes_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\abdomeagudo_diverticulite_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\abdomeagudo_hemorragico_raw.md": {
+    "lines_dropped": 1,
+    "email": 1,
+    "cpf_like": 1,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "cirurgia\\abdomeagudo_introdução_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\abdomeagudo_obstrutivo_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\abdomeagudo_pancreatiteaguda_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\abdomeagudo_perfurativo_raw.md": {
+    "lines_dropped": 2,
+    "email": 1,
+    "cpf_like": 1,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\abdomeagudo_vascular_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\abdomeagudo_visaocriticadeseguranca_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\anestesiologia_anestesiageral_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\anestesiologia_monitorizacao_raw.md": {
+    "lines_dropped": 19,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 15
+  },
+  "cirurgia\\anestesiologia_tecnicasanestesicas_raw.md": {
+    "lines_dropped": 16,
+    "email": 8,
+    "cpf_like": 8,
+    "phone": 0,
+    "page_header_footer": 8
+  },
+  "cirurgia\\baco_doencascirurgicas_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\cabecaepescoco_anomaliascongenitasemcabecaepescoco_raw.md": {
+    "lines_dropped": 13,
+    "email": 9,
+    "cpf_like": 9,
+    "phone": 0,
+    "page_header_footer": 4
+  },
+  "cirurgia\\cabecaepescoco_cancerdepelenaomelanoma_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\cabecaepescoco_paratireoide_raw.md": {
+    "lines_dropped": 15,
+    "email": 10,
+    "cpf_like": 10,
+    "phone": 0,
+    "page_header_footer": 5
+  },
+  "cirurgia\\cabecaepescoco_tireoide_raw.md": {
+    "lines_dropped": 22,
+    "email": 16,
+    "cpf_like": 16,
+    "phone": 0,
+    "page_header_footer": 6
+  },
+  "cirurgia\\cabecapescoco_estenosecarotideaassintomatica_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\cabecapescoco_estenosecarotideasintomatica_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\cabecapescoco_esvaziamentoscervicais_raw.md": {
+    "lines_dropped": 12,
+    "email": 8,
+    "cpf_like": 8,
+    "phone": 0,
+    "page_header_footer": 4
+  },
+  "cirurgia\\cabecapescoco_massascervicais_raw.md": {
+    "lines_dropped": 5,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "cirurgia\\cardiovascular_doencacoronariana_raw.md": {
+    "lines_dropped": 13,
+    "email": 7,
+    "cpf_like": 7,
+    "phone": 1,
+    "page_header_footer": 5
+  },
+  "cirurgia\\cardiovascular_doencasdaaorta_raw.md": {
+    "lines_dropped": 15,
+    "email": 9,
+    "cpf_like": 9,
+    "phone": 1,
+    "page_header_footer": 5
+  },
+  "cirurgia\\cardiovascular_doencasvalvares_raw.md": {
+    "lines_dropped": 31,
+    "email": 21,
+    "cpf_like": 21,
+    "phone": 0,
+    "page_header_footer": 10
+  },
+  "cirurgia\\cardiovascular_transplantecardiaco_raw.md": {
+    "lines_dropped": 21,
+    "email": 14,
+    "cpf_like": 14,
+    "phone": 0,
+    "page_header_footer": 7
+  },
+  "cirurgia\\cirurgia_resumao_raw.md": {
+    "lines_dropped": 10,
+    "email": 7,
+    "cpf_like": 7,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "cirurgia\\cirurgiageral_dii_raw.md": {
+    "lines_dropped": 16,
+    "email": 10,
+    "cpf_like": 10,
+    "phone": 1,
+    "page_header_footer": 5
+  },
+  "cirurgia\\cirurgiageral_fournier_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\cirurgiageral_videolaparoscopia_raw.md": {
+    "lines_dropped": 9,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "cirurgia\\cirurgiainfantil_neonatos_raw.md": {
+    "lines_dropped": 13,
+    "email": 8,
+    "cpf_like": 8,
+    "phone": 1,
+    "page_header_footer": 4
+  },
+  "cirurgia\\cirurgiainfantil_oqueprecisasabernops_raw.md": {
+    "lines_dropped": 12,
+    "email": 8,
+    "cpf_like": 8,
+    "phone": 0,
+    "page_header_footer": 4
+  },
+  "cirurgia\\cirurgiainfantil_toraxeregiaoinguinal_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\cirurgiainfantil_tumoresdainfancia_raw.md": {
+    "lines_dropped": 9,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "cirurgia\\coloproctologia_cacolorretal_raw.md": {
+    "lines_dropped": 13,
+    "email": 8,
+    "cpf_like": 8,
+    "phone": 0,
+    "page_header_footer": 5
+  },
+  "cirurgia\\coloproctologia_cecanal_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\coloproctologia_doencasorificiais_raw.md": {
+    "lines_dropped": 10,
+    "email": 7,
+    "cpf_like": 7,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "cirurgia\\coloproctologia_sindromesassociadasaoccr_raw.md": {
+    "lines_dropped": 7,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 2,
+    "page_header_footer": 1
+  },
+  "cirurgia\\endoscopia_poliposcolorretais_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\endoscopia_preparodocolon_raw.md": {
+    "lines_dropped": 1,
+    "email": 1,
+    "cpf_like": 1,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "cirurgia\\esofago_acalasia_raw.md": {
+    "lines_dropped": 10,
+    "email": 7,
+    "cpf_like": 7,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "cirurgia\\esofago_barrett_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\esofago_cancerdeesofago_raw.md": {
+    "lines_dropped": 36,
+    "email": 10,
+    "cpf_like": 10,
+    "phone": 0,
+    "page_header_footer": 26
+  },
+  "cirurgia\\esofago_diagnosticosediferenciaisdedisfagia_raw.md": {
+    "lines_dropped": 9,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "cirurgia\\esofago_drge_raw.md": {
+    "lines_dropped": 9,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "cirurgia\\esofago_herniadehiato_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\esofago_introducao_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\estomago_adenocarcinomagastrico_raw.md": {
+    "lines_dropped": 9,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "cirurgia\\estomago_anatomia_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\estomago_cirurgiabariatrica_raw.md": {
+    "lines_dropped": 20,
+    "email": 14,
+    "cpf_like": 14,
+    "phone": 0,
+    "page_header_footer": 6
+  },
+  "cirurgia\\estomago_complicacoesposgastrectomia_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\estomago_gist_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\estomago_introducaocancerelinfomas_raw.md": {
+    "lines_dropped": 1,
+    "email": 1,
+    "cpf_like": 1,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "cirurgia\\estomago_tumoresneuroendocrinos_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\figado_adenomahepatico_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\figado_carcinomahepatocelular_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\figado_cistohepatico_raw.md": {
+    "lines_dropped": 8,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\figado_figadoparaperdidos_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\figado_hemangiomahepatico_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\figado_hiperplasianodularfocal_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\figado_metastaseshepaticasccr_raw.md": {
+    "lines_dropped": 12,
+    "email": 8,
+    "cpf_like": 8,
+    "phone": 0,
+    "page_header_footer": 4
+  },
+  "cirurgia\\geral_cistopilonidal_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\ginecologia_endometriose_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\hernias_anatomiadaparede_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\hernias_fechamentodaparedeabdominal_raw.md": {
+    "lines_dropped": 1,
+    "email": 1,
+    "cpf_like": 1,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "cirurgia\\hernias_hernioplastiainguinal_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\hernias_incisionais_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\hernias_inguinalfemoralumbilical_raw.md": {
+    "lines_dropped": 8,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "cirurgia\\hernias_outrashernias_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\hernias_sindromecompartimental_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\intestino_doencasdoassoalhopelvico_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 1,
+    "page_header_footer": 1
+  },
+  "cirurgia\\intestino_sii_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\intestino_tumoresintestinodelgado_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\oncocirurgia_melanoma_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\oncocirurgia_sarcoma_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\ortopedia_geral_raw.md": {
+    "lines_dropped": 11,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 5
+  },
+  "cirurgia\\ortopedia_traumatologia_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\pancreaseviasbiliares_adenocarcinomadepancreas_raw.md": {
+    "lines_dropped": 13,
+    "email": 9,
+    "cpf_like": 9,
+    "phone": 0,
+    "page_header_footer": 4
+  },
+  "cirurgia\\pancreaseviasbiliares_cancerdevesicula_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\pancreaseviasbiliares_cistosbiliares_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\pancreaseviasbiliares_lesaoiatrogenicadaviabiliar_raw.md": {
+    "lines_dropped": 5,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\pancreaseviasbiliares_neoplasiascisticaspancreaticas_raw.md": {
+    "lines_dropped": 10,
+    "email": 7,
+    "cpf_like": 7,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "cirurgia\\pancreaseviasbiliares_outrostumoresperiampulares_raw.md": {
+    "lines_dropped": 9,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "cirurgia\\pancreaseviasbiliares_pancreatitecronica_raw.md": {
+    "lines_dropped": 12,
+    "email": 8,
+    "cpf_like": 8,
+    "phone": 0,
+    "page_header_footer": 4
+  },
+  "cirurgia\\pancreaseviasbiliares_polipodevesiculabiliar_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\pancreaseviasbiliares_tumoresneuroendocrinos_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\perioperatorio_avaliacaopreanestesica_raw.md": {
+    "lines_dropped": 9,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "cirurgia\\perioperatorio_complicacoesgerais_raw.md": {
+    "lines_dropped": 2,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "cirurgia\\perioperatorio_nutricao_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\perioperatorio_preoperatorio_raw.md": {
+    "lines_dropped": 8,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\perioperatorio_remiteposoperatorio_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\plastica_anestesicoslocais_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\plastica_cicatrizacaofisiologica_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\plastica_cicatrizacaopatologica_raw.md": {
+    "lines_dropped": 9,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "cirurgia\\plastica_contorno_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\plastica_enxertos_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\plastica_ferimentodescolante_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\plastica_fiosdesutura_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\plastica_fraturasdeface_raw.md": {
+    "lines_dropped": 15,
+    "email": 9,
+    "cpf_like": 9,
+    "phone": 0,
+    "page_header_footer": 6
+  },
+  "cirurgia\\plastica_ginecomastia_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\plastica_hipertrofiamamaria_raw.md": {
+    "lines_dropped": 7,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 1,
+    "page_header_footer": 2
+  },
+  "cirurgia\\plastica_lesoesporpressao_raw.md": {
+    "lines_dropped": 9,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "cirurgia\\plastica_mama_raw.md": {
+    "lines_dropped": 5,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\plastica_paralisiafacial_raw.md": {
+    "lines_dropped": 10,
+    "email": 7,
+    "cpf_like": 7,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "cirurgia\\plastica_principaisretalhos_raw.md": {
+    "lines_dropped": 10,
+    "email": 7,
+    "cpf_like": 7,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "cirurgia\\plastica_queimados_raw.md": {
+    "lines_dropped": 13,
+    "email": 9,
+    "cpf_like": 9,
+    "phone": 0,
+    "page_header_footer": 4
+  },
+  "cirurgia\\plastica_reconstrucaomama_raw.md": {
+    "lines_dropped": 8,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "cirurgia\\plastica_retalhos_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\toracica_bronquiectasiasehemoptise_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\toracica_cadepulmao_raw.md": {
+    "lines_dropped": 32,
+    "email": 21,
+    "cpf_like": 21,
+    "phone": 2,
+    "page_header_footer": 9
+  },
+  "cirurgia\\toracica_derramepleural_raw.md": {
+    "lines_dropped": 5,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\toracica_doencascongenitas_raw.md": {
+    "lines_dropped": 20,
+    "email": 14,
+    "cpf_like": 14,
+    "phone": 0,
+    "page_header_footer": 6
+  },
+  "cirurgia\\toracica_doencasdaparedetoracica_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\toracica_doencastraqueais_raw.md": {
+    "lines_dropped": 11,
+    "email": 7,
+    "cpf_like": 7,
+    "phone": 0,
+    "page_header_footer": 4
+  },
+  "cirurgia\\toracica_exsudatolinfocitico_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\toracica_exsudatoneutrofilico_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\toracica_isquemiammii(1)_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\toracica_isquemiammii_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\toracica_mediastino_raw.md": {
+    "lines_dropped": 17,
+    "email": 12,
+    "cpf_like": 12,
+    "phone": 0,
+    "page_header_footer": 5
+  },
+  "cirurgia\\toracica_pneumotorax_raw.md": {
+    "lines_dropped": 9,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "cirurgia\\toracica_quilotorax_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\trauma_abdome_raw.md": {
+    "lines_dropped": 14,
+    "email": 10,
+    "cpf_like": 10,
+    "phone": 0,
+    "page_header_footer": 4
+  },
+  "cirurgia\\trauma_atendimento incial_raw.md": {
+    "lines_dropped": 3,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "cirurgia\\trauma_cervical_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\trauma_choque_raw.md": {
+    "lines_dropped": 2,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "cirurgia\\trauma_medidasauxiliaresefast_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\trauma_musculoesqueletico_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\trauma_pelve_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\trauma_populaçoespeciais_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\trauma_ressuscitação hemostática_raw.md": {
+    "lines_dropped": 2,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "cirurgia\\trauma_tce_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\trauma_torax_raw.md": {
+    "lines_dropped": 10,
+    "email": 7,
+    "cpf_like": 7,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "cirurgia\\trauma_trm_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\trauma_vias aéreas_raw.md": {
+    "lines_dropped": 2,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "cirurgia\\urgenciasendoscopicas_corpoestranho_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\urgenciasendoscopicas_hdanaovaricosa_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\urgenciasendoscopicas_hdavaricosa_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\urgenciasendoscopicas_hdb_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\urgenciasendoscopicas_hemorragiadigestivamedia_raw.md": {
+    "lines_dropped": 1,
+    "email": 1,
+    "cpf_like": 1,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "cirurgia\\urologia_bexiganeurogenica_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\urologia_desafiosfinais_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\urologia_dsts_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\urologia_escrotoagudo_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\urologia_fraturapeniana_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\urologia_hpb_raw.md": {
+    "lines_dropped": 9,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "cirurgia\\urologia_incontinenciaurinariadeesforço_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\urologia_infertilidade_raw.md": {
+    "lines_dropped": 8,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "cirurgia\\urologia_litiase_raw.md": {
+    "lines_dropped": 24,
+    "email": 17,
+    "cpf_like": 17,
+    "phone": 1,
+    "page_header_footer": 6
+  },
+  "cirurgia\\urologia_medicinasexual_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\urologia_priaprismo_raw.md": {
+    "lines_dropped": 9,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "cirurgia\\urologia_sddabexigahiperativaedolorosa_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\urologia_traumadebexiga_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\urologia_traumaderimeureter_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\urologia_traumadeuretra_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 1,
+    "page_header_footer": 1
+  },
+  "cirurgia\\urologia_traumagenital_raw.md": {
+    "lines_dropped": 2,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "cirurgia\\urologia_udnedisfuncoesmiccionais_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\uroncologia_adrenal_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\urooncologia_bexiga_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\urooncologia_penis_raw.md": {
+    "lines_dropped": 8,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 2,
+    "page_header_footer": 2
+  },
+  "cirurgia\\urooncologia_prostata_raw.md": {
+    "lines_dropped": 9,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "cirurgia\\urooncologia_rim_raw.md": {
+    "lines_dropped": 8,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\urooncologia_testiculo_raw.md": {
+    "lines_dropped": 8,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\vascular_aneurismadeaorta_raw.md": {
+    "lines_dropped": 13,
+    "email": 9,
+    "cpf_like": 9,
+    "phone": 0,
+    "page_header_footer": 4
+  },
+  "cirurgia\\vascular_insuficienciavenosacronica_raw.md": {
+    "lines_dropped": 8,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 1,
+    "page_header_footer": 2
+  },
+  "cirurgia\\vascular_miscelanea_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\vascular_pediabetico_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\vascular_sddesfiladeirotoracico_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\vascular_sindromesaorticasagudas_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\vascular_sindromescompressivas_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\vascular_traumavasculardeaorta_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "cirurgia\\vascular_traumavasculardeextremidades_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\vascular_tvp_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "cirurgia\\vascular_vasculites_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\cardiologia_aclsebls_raw.md": {
+    "lines_dropped": 17,
+    "email": 10,
+    "cpf_like": 10,
+    "phone": 1,
+    "page_header_footer": 6
+  },
+  "clinica\\cardiologia_bradiarritmia_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "clinica\\cardiologia_disseccaoeaneurisma_raw.md": {
+    "lines_dropped": 8,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "clinica\\cardiologia_emergenciashipertensivas_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\cardiologia_febrereumaticaeendocardite_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "clinica\\cardiologia_has_raw.md": {
+    "lines_dropped": 10,
+    "email": 7,
+    "cpf_like": 7,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "clinica\\cardiologia_iamcsst_raw.md": {
+    "lines_dropped": 15,
+    "email": 9,
+    "cpf_like": 9,
+    "phone": 0,
+    "page_header_footer": 6
+  },
+  "clinica\\cardiologia_iamssst_raw.md": {
+    "lines_dropped": 9,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "clinica\\cardiologia_ic_raw.md": {
+    "lines_dropped": 12,
+    "email": 8,
+    "cpf_like": 8,
+    "phone": 0,
+    "page_header_footer": 4
+  },
+  "clinica\\cardiologia_pericarditemiocardite_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "clinica\\cardiologia_sincope_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\cardiologia_taquiarritmia_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "clinica\\cardiologia_valvopatias_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "clinica\\dermatologia_dermatosesbolhosas_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\dermatologia_hanseníase_raw.md": {
+    "lines_dropped": 4,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "clinica\\dermatologia_lesoeselementares_raw.md": {
+    "lines_dropped": 9,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "clinica\\endocrinologia_anatomiaefisiologiadaadrenal_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\endocrinologia_diabetes_raw.md": {
+    "lines_dropped": 19,
+    "email": 13,
+    "cpf_like": 13,
+    "phone": 0,
+    "page_header_footer": 6
+  },
+  "clinica\\endocrinologia_dislipidemia_raw.md": {
+    "lines_dropped": 17,
+    "email": 11,
+    "cpf_like": 11,
+    "phone": 0,
+    "page_header_footer": 6
+  },
+  "clinica\\endocrinologia_disturbiosdocalcio_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\endocrinologia_emergenciashiperglicemicas_raw.md": {
+    "lines_dropped": 5,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "clinica\\endocrinologia_feocromocitoma_raw.md": {
+    "lines_dropped": 5,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 1,
+    "page_header_footer": 1
+  },
+  "clinica\\endocrinologia_fisiologiadatireoide_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\endocrinologia_hiperaldosteronismoprimario_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\endocrinologia_hipercalcemias_raw.md": {
+    "lines_dropped": 14,
+    "email": 9,
+    "cpf_like": 9,
+    "phone": 0,
+    "page_header_footer": 5
+  },
+  "clinica\\endocrinologia_hiperglicemiahospitalar_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\endocrinologia_hipertireoidismo_raw.md": {
+    "lines_dropped": 8,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "clinica\\endocrinologia_hipocalcemias_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "clinica\\endocrinologia_hipotireoidismo_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\endocrinologia_incidentalomaadrenal_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "clinica\\endocrinologia_nodulosecancerdetireoide_raw.md": {
+    "lines_dropped": 8,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "clinica\\endocrinologia_obesidade_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "clinica\\endocrinologia_osteoporose_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\endocrinologia_prolactinomas_raw.md": {
+    "lines_dropped": 5,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "clinica\\endocrinologia_sdcushing_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\endocrinologia_sindromemetabolica_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\endocrinologia_tireoiditesesindromedoeutireoidianodoente_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "clinica\\gastroenterologia_diarreiaagudaeclostridium_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "clinica\\gastroenterologia_diarreiacronica_raw.md": {
+    "lines_dropped": 10,
+    "email": 7,
+    "cpf_like": 7,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "clinica\\gastroenterologia_dii_raw.md": {
+    "lines_dropped": 8,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "clinica\\gastroenterologia_disfagiaesofagiteacalasia_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "clinica\\gastroenterologia_dispepsia_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\gastroenterologia_drge_raw.md": {
+    "lines_dropped": 13,
+    "email": 8,
+    "cpf_like": 8,
+    "phone": 0,
+    "page_header_footer": 5
+  },
+  "clinica\\gastroenterologia_ulcerahpyloridispepsiafuncional_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "clinica\\geral_rastreamentos_raw.md": {
+    "lines_dropped": 19,
+    "email": 13,
+    "cpf_like": 13,
+    "phone": 0,
+    "page_header_footer": 6
+  },
+  "clinica\\geriatria_avaliacaogeriatricaampla_raw.md": {
+    "lines_dropped": 16,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 11
+  },
+  "clinica\\geriatria_delirium_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "clinica\\geriatria_demencia_raw.md": {
+    "lines_dropped": 9,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "clinica\\geriatria_depressao_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\geriatria_fragilidade_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "clinica\\geriatria_iatrogenia_raw.md": {
+    "lines_dropped": 5,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "clinica\\geriatria_instabilidadequedasimobilidade_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\geriatria_introducao_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\geriatria_itunoidoso_raw.md": {
+    "lines_dropped": 5,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\geriatria_vacinacao_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\hematologia_anemiashemoliticasadquiridas_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "clinica\\hematologia_anemiashemoliticashereditarias_raw.md": {
+    "lines_dropped": 12,
+    "email": 8,
+    "cpf_like": 8,
+    "phone": 0,
+    "page_header_footer": 4
+  },
+  "clinica\\hematologia_anemiashipoproliferativas_raw.md": {
+    "lines_dropped": 12,
+    "email": 9,
+    "cpf_like": 9,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "clinica\\hematologia_avaliacaodohemograma_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\hematologia_discrasiasplasmocitarias_raw.md": {
+    "lines_dropped": 5,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\hematologia_disturbiosdahemostasia_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "clinica\\hematologia_fisiologiadacoagulacao_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "clinica\\hematologia_hemoterapia_raw.md": {
+    "lines_dropped": 3,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "clinica\\hematologia_leucemias_raw.md": {
+    "lines_dropped": 7,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\hematologia_linfomas_raw.md": {
+    "lines_dropped": 13,
+    "email": 9,
+    "cpf_like": 9,
+    "phone": 0,
+    "page_header_footer": 4
+  },
+  "clinica\\hematologia_ptt_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\hematologia_sindromesmedulares_raw.md": {
+    "lines_dropped": 10,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 4
+  },
+  "clinica\\hepatologia_aleracoesdeenzimasedoencas_raw.md": {
+    "lines_dropped": 10,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 4
+  },
+  "clinica\\hepatologia_cirrose_raw.md": {
+    "lines_dropped": 24,
+    "email": 17,
+    "cpf_like": 17,
+    "phone": 0,
+    "page_header_footer": 7
+  },
+  "clinica\\imunologia_alergias_raw.md": {
+    "lines_dropped": 32,
+    "email": 21,
+    "cpf_like": 21,
+    "phone": 0,
+    "page_header_footer": 11
+  },
+  "clinica\\infectologia_adicentescomanimaispeconhentos_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "clinica\\infectologia_antibioticos_raw.md": {
+    "lines_dropped": 20,
+    "email": 14,
+    "cpf_like": 14,
+    "phone": 0,
+    "page_header_footer": 6
+  },
+  "clinica\\infectologia_arboviroses_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "clinica\\infectologia_doencasnegligenciadas_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "clinica\\infectologia_doencaspandemicas_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\infectologia_doencasvirais_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\infectologia_hepatitesvirais_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "clinica\\infectologia_HIV_raw.md": {
+    "lines_dropped": 16,
+    "email": 11,
+    "cpf_like": 11,
+    "phone": 0,
+    "page_header_footer": 5
+  },
+  "clinica\\infectologia_ictericiasfebrisefebremaculosa_raw.md": {
+    "lines_dropped": 10,
+    "email": 7,
+    "cpf_like": 7,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "clinica\\infectologia_parasitosesintestinais_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\infectologia_sifiliseneurossifilis_raw.md": {
+    "lines_dropped": 13,
+    "email": 8,
+    "cpf_like": 8,
+    "phone": 0,
+    "page_header_footer": 5
+  },
+  "clinica\\infectologia_tuberculose_raw.md": {
+    "lines_dropped": 19,
+    "email": 13,
+    "cpf_like": 13,
+    "phone": 0,
+    "page_header_footer": 6
+  },
+  "clinica\\infectologia_vacinacao_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "clinica\\nefrologia_disturbiosdopotassio_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\nefrologia_disturbiosdosodio_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\nefrologia_disturbioshidroeletroliticosoutros_raw.md": {
+    "lines_dropped": 3,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "clinica\\nefrologia_drc_raw.md": {
+    "lines_dropped": 8,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "clinica\\nefrologia_gasometria_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "clinica\\nefrologia_glomerulopatias_raw.md": {
+    "lines_dropped": 13,
+    "email": 9,
+    "cpf_like": 9,
+    "phone": 0,
+    "page_header_footer": 4
+  },
+  "clinica\\nefrologia_ira_raw.md": {
+    "lines_dropped": 10,
+    "email": 7,
+    "cpf_like": 7,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "clinica\\nefrologia_itu_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\neurologia_avci_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\neurologia_avcintraparenquimatoso_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\neurologia_cefaleiastrigeminoautonomicas_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\neurologia_em_raw.md": {
+    "lines_dropped": 10,
+    "email": 7,
+    "cpf_like": 7,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "clinica\\neurologia_enxaquecas_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "clinica\\neurologia_epilepsia_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "clinica\\neurologia_guillainbarre_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "clinica\\neurologia_hsa_raw.md": {
+    "lines_dropped": 3,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "clinica\\neurologia_introducaoascefaleiasprimarias_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\neurologia_meningitesencefalites_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "clinica\\neurologia_miasteniagravis_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\neurologia_neuromieliteoptica_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\neurologia_parkinson_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "clinica\\oftalmologia_generalistaeinterfacecomoutrasespecialidades_raw.md": {
+    "lines_dropped": 30,
+    "email": 19,
+    "cpf_like": 19,
+    "phone": 1,
+    "page_header_footer": 10
+  },
+  "clinica\\oncologia_cuidadospaliativos_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "clinica\\oncologia_emergenciasoncologicas_raw.md": {
+    "lines_dropped": 10,
+    "email": 7,
+    "cpf_like": 7,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "clinica\\otorrinolaringologia_bucofaringolaringologia_raw.md": {
+    "lines_dropped": 24,
+    "email": 15,
+    "cpf_like": 15,
+    "phone": 2,
+    "page_header_footer": 7
+  },
+  "clinica\\otorrinolaringologia_otologia_raw.md": {
+    "lines_dropped": 29,
+    "email": 20,
+    "cpf_like": 20,
+    "phone": 0,
+    "page_header_footer": 9
+  },
+  "clinica\\otorrinolaringologia_rinologia_raw.md": {
+    "lines_dropped": 22,
+    "email": 13,
+    "cpf_like": 13,
+    "phone": 3,
+    "page_header_footer": 6
+  },
+  "clinica\\pneumologia_asma_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "clinica\\pneumologia_derramepleural_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\pneumologia_disturbiosdosono_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\pneumologia_dpi_raw.md": {
+    "lines_dropped": 10,
+    "email": 7,
+    "cpf_like": 7,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "clinica\\pneumologia_dpoc_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "clinica\\pneumologia_espirometria_raw.md": {
+    "lines_dropped": 9,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "clinica\\pneumologia_hp_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\pneumologia_nodulopulmonar_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\pneumologia_pneumonia_raw.md": {
+    "lines_dropped": 11,
+    "email": 7,
+    "cpf_like": 7,
+    "phone": 0,
+    "page_header_footer": 4
+  },
+  "clinica\\pneumologia_tabagismo_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "clinica\\pneumologia_tep_raw.md": {
+    "lines_dropped": 13,
+    "email": 9,
+    "cpf_like": 9,
+    "phone": 0,
+    "page_header_footer": 4
+  },
+  "clinica\\psiquiatria_transtornodeansiedade_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "clinica\\psiquiatria_transtornoporusodealcool_raw.md": {
+    "lines_dropped": 8,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "clinica\\psiquiatria_transtornopsicotico_raw.md": {
+    "lines_dropped": 10,
+    "email": 7,
+    "cpf_like": 7,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "clinica\\psiquiatria_transtornosdehumor_raw.md": {
+    "lines_dropped": 20,
+    "email": 14,
+    "cpf_like": 14,
+    "phone": 0,
+    "page_header_footer": 6
+  },
+  "clinica\\reumatologia_artritereumatoide_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "clinica\\reumatologia_artritesmicrocristalinas_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\reumatologia_behcet_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\reumatologia_esclerosesistemica_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\reumatologia_espondiloartrites_raw.md": {
+    "lines_dropped": 9,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "clinica\\reumatologia_fibromialgia_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\reumatologia_introducaoartrites_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\reumatologia_les_raw.md": {
+    "lines_dropped": 11,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 7
+  },
+  "clinica\\reumatologia_miopatias_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\reumatologia_osteoartrite_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\reumatologia_sjogren_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\reumatologia_vasculites_raw.md": {
+    "lines_dropped": 9,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "clinica\\uti_analgesiaesedacao_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\uti_choque_raw.md": {
+    "lines_dropped": 15,
+    "email": 10,
+    "cpf_like": 10,
+    "phone": 0,
+    "page_header_footer": 5
+  },
+  "clinica\\uti_dva_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\uti_ics_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\uti_intoxicacoes_raw.md": {
+    "lines_dropped": 9,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "clinica\\uti_pneumoniaassociadaaventilacaomecanica_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\uti_principiosvm_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\uti_sdra_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "clinica\\uti_viaaereaintubacaovni_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "go\\ginecologia_alteracoescitopatologicas_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "go\\ginecologia_amenorreiaprimaria_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "go\\ginecologia_amenorreiasecundaria_raw.md": {
+    "lines_dropped": 5,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "go\\ginecologia_anticoncepcao_raw.md": {
+    "lines_dropped": 20,
+    "email": 14,
+    "cpf_like": 14,
+    "phone": 0,
+    "page_header_footer": 6
+  },
+  "go\\ginecologia_cadecolodeutero_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "go\\ginecologia_cadeendometrio_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "go\\ginecologia_cademama_raw.md": {
+    "lines_dropped": 15,
+    "email": 10,
+    "cpf_like": 10,
+    "phone": 0,
+    "page_header_footer": 5
+  },
+  "go\\ginecologia_cadeovario_raw.md": {
+    "lines_dropped": 6,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "go\\ginecologia_cirurgiaginecologica_raw.md": {
+    "lines_dropped": 4,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "go\\ginecologia_classificacaolesoesbenignas_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "go\\ginecologia_corrimentosvaginais_raw.md": {
+    "lines_dropped": 12,
+    "email": 8,
+    "cpf_like": 8,
+    "phone": 0,
+    "page_header_footer": 4
+  },
+  "go\\ginecologia_desenvolvimentosexual_raw.md": {
+    "lines_dropped": 8,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "go\\ginecologia_dip_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "go\\ginecologia_doencasdavulvaedavagina_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "go\\ginecologia_endometriose_raw.md": {
+    "lines_dropped": 5,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "go\\ginecologia_esteroidogenese_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "go\\ginecologia_estudourodinamico_raw.md": {
+    "lines_dropped": 14,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 9
+  },
+  "go\\ginecologia_fisiologiamenstrual_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "go\\ginecologia_hiperplasiaendometrial_raw.md": {
+    "lines_dropped": 4,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "go\\ginecologia_hiperprolactinemia_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "go\\ginecologia_incontinenciasurinarias_raw.md": {
+    "lines_dropped": 13,
+    "email": 9,
+    "cpf_like": 9,
+    "phone": 0,
+    "page_header_footer": 4
+  },
+  "go\\ginecologia_lbgtqiap_raw.md": {
+    "lines_dropped": 9,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "go\\ginecologia_principaissintomasemmastologia_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "go\\ginecologia_prolapsogenital_raw.md": {
+    "lines_dropped": 14,
+    "email": 8,
+    "cpf_like": 8,
+    "phone": 0,
+    "page_header_footer": 6
+  },
+  "go\\ginecologia_propedeuticaemuroginecologia_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "go\\ginecologia_propedeuticamamaria_raw.md": {
+    "lines_dropped": 10,
+    "email": 7,
+    "cpf_like": 7,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "go\\ginecologia_puberdadeprecoceetardia_raw.md": {
+    "lines_dropped": 5,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "go\\ginecologia_sindromeclimaterica_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "go\\ginecologia_sindromedosovariospolicisticos_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "go\\ginecologia_sua_raw.md": {
+    "lines_dropped": 11,
+    "email": 7,
+    "cpf_like": 7,
+    "phone": 0,
+    "page_header_footer": 4
+  },
+  "go\\ginecologia_tumoresanexiais_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "go\\ginecologia_ulcerasgenitais_raw.md": {
+    "lines_dropped": 13,
+    "email": 9,
+    "cpf_like": 9,
+    "phone": 0,
+    "page_header_footer": 4
+  },
+  "go\\ginecologia_urgenciasginecologicas_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "go\\ginecologia_violenciasexual_raw.md": {
+    "lines_dropped": 9,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "go\\obstetricia_abortonobrasil_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "go\\obstetricia_anatomiapelvicafeminina_raw.md": {
+    "lines_dropped": 12,
+    "email": 8,
+    "cpf_like": 8,
+    "phone": 0,
+    "page_header_footer": 4
+  },
+  "go\\obstetricia_assistenciaaoparto_raw.md": {
+    "lines_dropped": 24,
+    "email": 7,
+    "cpf_like": 7,
+    "phone": 0,
+    "page_header_footer": 17
+  },
+  "go\\obstetricia_assistenciaprenatal_raw.md": {
+    "lines_dropped": 10,
+    "email": 7,
+    "cpf_like": 7,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "go\\obstetricia_diabetesnagestacao_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "go\\obstetricia_disturbiospsiquiatricos_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "go\\obstetricia_doencahemoliticaperinatal_raw.md": {
+    "lines_dropped": 2,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "go\\obstetricia_embriologia_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "go\\obstetricia_estaticafetal_raw.md": {
+    "lines_dropped": 9,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "go\\obstetricia_gemelaridade_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "go\\obstetricia_gestacaoectopica_raw.md": {
+    "lines_dropped": 10,
+    "email": 7,
+    "cpf_like": 7,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "go\\obstetricia_hemorragiaposparto_raw.md": {
+    "lines_dropped": 9,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "go\\obstetricia_incompetenciaistmocervical_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "go\\obstetricia_infeccoes_raw.md": {
+    "lines_dropped": 5,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "go\\obstetricia_infertilidade_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "go\\obstetricia_malformacoescongenitas_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "go\\obstetricia_malformacoesmuellerianas_raw.md": {
+    "lines_dropped": 10,
+    "email": 7,
+    "cpf_like": 7,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "go\\obstetricia_mecanismoeassistenciaaoparto_raw.md": {
+    "lines_dropped": 21,
+    "email": 7,
+    "cpf_like": 7,
+    "phone": 0,
+    "page_header_footer": 14
+  },
+  "go\\obstetricia_modificacoesgravidicas_raw.md": {
+    "lines_dropped": 3,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "go\\obstetricia_procedimentosinvasivos_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "go\\obstetricia_puerperiopatologico_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "go\\obstetricia_rastreamentoaneuploidias_raw.md": {
+    "lines_dropped": 5,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "go\\obstetricia_rupreme_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "go\\obstetricia_sangramentodeprimeirametade_raw.md": {
+    "lines_dropped": 10,
+    "email": 7,
+    "cpf_like": 7,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "go\\obstetricia_sangramentodesegundametade_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "go\\obstetricia_sdhipertensivas_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "go\\obstetricia_sofrimentofetalagudo_raw.md": {
+    "lines_dropped": 6,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "go\\obstetricia_sofrimentofetalcronicaerciu_raw.md": {
+    "lines_dropped": 9,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "go\\obstetricia_tecnicasdereproducaoassistida_raw.md": {
+    "lines_dropped": 7,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "go\\obstetricia_tpp_raw.md": {
+    "lines_dropped": 3,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "go\\obstetricia_trombofilias_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "go\\obstetricia_ultrassonografia_raw.md": {
+    "lines_dropped": 9,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "go\\obstetrícia_puerperiofisiologico_raw.md": {
+    "lines_dropped": 1,
+    "email": 1,
+    "cpf_like": 1,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\cardiologia_parte123_raw.md": {
+    "lines_dropped": 19,
+    "email": 14,
+    "cpf_like": 14,
+    "phone": 0,
+    "page_header_footer": 5
+  },
+  "pediatria\\cirurgiainfantil_malformacoescongenitas_raw.md": {
+    "lines_dropped": 22,
+    "email": 15,
+    "cpf_like": 15,
+    "phone": 0,
+    "page_header_footer": 7
+  },
+  "pediatria\\cirurgiainfantil_uropediatriaehernias_raw.md": {
+    "lines_dropped": 12,
+    "email": 8,
+    "cpf_like": 8,
+    "phone": 0,
+    "page_header_footer": 4
+  },
+  "pediatria\\dermato_dermatitesdermatosesefarmacodermias_raw.md": {
+    "lines_dropped": 23,
+    "email": 15,
+    "cpf_like": 15,
+    "phone": 1,
+    "page_header_footer": 7
+  },
+  "pediatria\\emergencia_convulsoesetceleve_raw.md": {
+    "lines_dropped": 2,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\emergencia_diarreiaaguda_raw.md": {
+    "lines_dropped": 7,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "pediatria\\emergencia_intoxicacoesepeconhentos_raw.md": {
+    "lines_dropped": 6,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\emergencia_pals_raw.md": {
+    "lines_dropped": 8,
+    "email": 8,
+    "cpf_like": 8,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\emergencia_politraumaequeimadura_raw.md": {
+    "lines_dropped": 9,
+    "email": 9,
+    "cpf_like": 9,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\emergencia_tcegraveemorteencefalica_raw.md": {
+    "lines_dropped": 9,
+    "email": 9,
+    "cpf_like": 9,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\emergencias_ingestacorpoestranhoebrue_raw.md": {
+    "lines_dropped": 7,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\endocrinologia_cad_raw.md": {
+    "lines_dropped": 6,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "pediatria\\endocrinologia_crescimentoebaixaestatura_raw.md": {
+    "lines_dropped": 4,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\endocrinologia_dds_raw.md": {
+    "lines_dropped": 5,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\endocrinologia_hac_raw.md": {
+    "lines_dropped": 4,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\endocrinologia_hipotireoidismo_raw.md": {
+    "lines_dropped": 4,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\endocrinologia_obesidadeesindromemetabolica_raw.md": {
+    "lines_dropped": 4,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\gastro_parte123_raw.md": {
+    "lines_dropped": 15,
+    "email": 14,
+    "cpf_like": 14,
+    "phone": 1,
+    "page_header_footer": 0
+  },
+  "pediatria\\hematologia_partes1234_raw.md": {
+    "lines_dropped": 16,
+    "email": 16,
+    "cpf_like": 16,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\imunologia_imunodeficiencias_raw.md": {
+    "lines_dropped": 13,
+    "email": 13,
+    "cpf_like": 13,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\infectologia_adenomegalias_raw.md": {
+    "lines_dropped": 6,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\infectologia_arboviroses_raw.md": {
+    "lines_dropped": 7,
+    "email": 7,
+    "cpf_like": 7,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\infectologia_bronquioliteecoqueluche_raw.md": {
+    "lines_dropped": 4,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\infectologia_covid_raw.md": {
+    "lines_dropped": 9,
+    "email": 8,
+    "cpf_like": 8,
+    "phone": 1,
+    "page_header_footer": 0
+  },
+  "pediatria\\infectologia_doencasexantematicas_raw.md": {
+    "lines_dropped": 8,
+    "email": 8,
+    "cpf_like": 8,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\infectologia_hepatitesvirais_raw.md": {
+    "lines_dropped": 8,
+    "email": 8,
+    "cpf_like": 8,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\infectologia_hiv_raw.md": {
+    "lines_dropped": 9,
+    "email": 7,
+    "cpf_like": 7,
+    "phone": 0,
+    "page_header_footer": 2
+  },
+  "pediatria\\infectologia_infeccoesfungicas_raw.md": {
+    "lines_dropped": 6,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\infectologia_itu_raw.md": {
+    "lines_dropped": 6,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "pediatria\\infectologia_IVAS_raw.md": {
+    "lines_dropped": 5,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\infectologia_meningitesencefalites_raw.md": {
+    "lines_dropped": 5,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "pediatria\\infectologia_parasitoses_raw.md": {
+    "lines_dropped": 11,
+    "email": 11,
+    "cpf_like": 11,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\infectologia_pneumonias_raw.md": {
+    "lines_dropped": 4,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\infectologia_sindromesfebris_raw.md": {
+    "lines_dropped": 8,
+    "email": 8,
+    "cpf_like": 8,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\infectologia_tuberculose_raw.md": {
+    "lines_dropped": 7,
+    "email": 7,
+    "cpf_like": 7,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\infectologia_vacinacao_raw.md": {
+    "lines_dropped": 10,
+    "email": 10,
+    "cpf_like": 10,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\intensiva_choqueedva_raw.md": {
+    "lines_dropped": 6,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 1,
+    "page_header_footer": 0
+  },
+  "pediatria\\intensiva_disturbioshidroeletroliticoseacidobasicos_raw.md": {
+    "lines_dropped": 12,
+    "email": 12,
+    "cpf_like": 12,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\intensiva_insuficienciarespiratoria_raw.md": {
+    "lines_dropped": 3,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\intensiva_sedoanalgesiaesri_raw.md": {
+    "lines_dropped": 4,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\intensiva_sepse_raw.md": {
+    "lines_dropped": 3,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\intensiva_vm_raw.md": {
+    "lines_dropped": 7,
+    "email": 7,
+    "cpf_like": 7,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\nefro_parte123_raw.md": {
+    "lines_dropped": 23,
+    "email": 19,
+    "cpf_like": 19,
+    "phone": 1,
+    "page_header_footer": 3
+  },
+  "pediatria\\neonatologia_desconfortorespiratorioneonatal_raw.md": {
+    "lines_dropped": 6,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\neonatologia_disturbiosmetabolicos_raw.md": {
+    "lines_dropped": 2,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\neonatologia_ictericiaecolestase_raw.md": {
+    "lines_dropped": 6,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\neonatologia_infeccoescongenitas_raw.md": {
+    "lines_dropped": 7,
+    "email": 7,
+    "cpf_like": 7,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\neonatologia_nutricaopretermo_raw.md": {
+    "lines_dropped": 3,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\neonatologia_outrasdoencasneonatais_raw.md": {
+    "lines_dropped": 7,
+    "email": 7,
+    "cpf_like": 7,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\neonatologia_reanimacaoneonatal_raw.md": {
+    "lines_dropped": 6,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\neonatologia_sepse_raw.md": {
+    "lines_dropped": 3,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\neonatologia_triagensneonatais_raw.md": {
+    "lines_dropped": 6,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\neurologia_cefaleiasehic_raw.md": {
+    "lines_dropped": 5,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\neurologia_disturbiosdosono_raw.md": {
+    "lines_dropped": 5,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\neurologia_epilepsias_raw.md": {
+    "lines_dropped": 12,
+    "email": 12,
+    "cpf_like": 12,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\neurologia_malformacoesdosnc_raw.md": {
+    "lines_dropped": 9,
+    "email": 7,
+    "cpf_like": 7,
+    "phone": 2,
+    "page_header_footer": 0
+  },
+  "pediatria\\oftalmologia_parte12_raw.md": {
+    "lines_dropped": 13,
+    "email": 13,
+    "cpf_like": 13,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\oncologia_tumoreseleucemias_raw.md": {
+    "lines_dropped": 9,
+    "email": 9,
+    "cpf_like": 9,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\ortopedia_napediatria_raw.md": {
+    "lines_dropped": 9,
+    "email": 8,
+    "cpf_like": 8,
+    "phone": 1,
+    "page_header_footer": 0
+  },
+  "pediatria\\otorrinolaringologia_parte12_raw.md": {
+    "lines_dropped": 11,
+    "email": 11,
+    "cpf_like": 11,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\pediatriageral_cuidadospaliativos_raw.md": {
+    "lines_dropped": 3,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\pediatriageral_eticamedica_raw.md": {
+    "lines_dropped": 5,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\pediatriageral_nutrologiapediatrica_raw.md": {
+    "lines_dropped": 3,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\pneumologia_parte12_raw.md": {
+    "lines_dropped": 9,
+    "email": 9,
+    "cpf_like": 9,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\psiquiatria_infanciaeadolescencia_raw.md": {
+    "lines_dropped": 8,
+    "email": 8,
+    "cpf_like": 8,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\puericultura_aleitamentomaterno_raw.md": {
+    "lines_dropped": 4,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\puericultura_alimentacaoinfantil_raw.md": {
+    "lines_dropped": 2,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\puericultura_desenvolvimentoinfantil_raw.md": {
+    "lines_dropped": 4,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\puericultura_desnutricaoevitaminas_raw.md": {
+    "lines_dropped": 4,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\puericultura_febresemsinaislocalizatorios_raw.md": {
+    "lines_dropped": 6,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 4
+  },
+  "pediatria\\puericultura_genetica_raw.md": {
+    "lines_dropped": 10,
+    "email": 7,
+    "cpf_like": 7,
+    "phone": 3,
+    "page_header_footer": 0
+  },
+  "pediatria\\puericultura_medicinadoadolescente_raw.md": {
+    "lines_dropped": 4,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\puericultura_pediatriageral_raw.md": {
+    "lines_dropped": 4,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\puericultura_puberdade_raw.md": {
+    "lines_dropped": 4,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\puericultura_transtornosdodesenvolvimento_raw.md": {
+    "lines_dropped": 2,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\puericultura_violencia_raw.md": {
+    "lines_dropped": 6,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "pediatria\\reumatologia_parte12_raw.md": {
+    "lines_dropped": 11,
+    "email": 10,
+    "cpf_like": 10,
+    "phone": 1,
+    "page_header_footer": 0
+  },
+  "preventiva\\abordagemcomunitaria_raw.md": {
+    "lines_dropped": 7,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 3
+  },
+  "preventiva\\abordagemfamiliar_raw.md": {
+    "lines_dropped": 8,
+    "email": 8,
+    "cpf_like": 8,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "preventiva\\acidentedetrabalho_raw.md": {
+    "lines_dropped": 2,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "preventiva\\associaçãoecausalidade_raw.md": {
+    "lines_dropped": 1,
+    "email": 1,
+    "cpf_like": 1,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "preventiva\\atencaoprimariaasaude_raw.md": {
+    "lines_dropped": 7,
+    "email": 7,
+    "cpf_like": 7,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "preventiva\\decreto7508_raw.md": {
+    "lines_dropped": 7,
+    "email": 7,
+    "cpf_like": 7,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "preventiva\\determinacaosocial_raw.md": {
+    "lines_dropped": 3,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "preventiva\\ensaiosclinicos_raw.md": {
+    "lines_dropped": 4,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "preventiva\\esf_raw.md": {
+    "lines_dropped": 9,
+    "email": 7,
+    "cpf_like": 7,
+    "phone": 2,
+    "page_header_footer": 0
+  },
+  "preventiva\\estudosepidemiologicos_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 1,
+    "page_header_footer": 0
+  },
+  "preventiva\\estudoslongitudinais_raw.md": {
+    "lines_dropped": 3,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "preventiva\\estudostransversais_raw.md": {
+    "lines_dropped": 3,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "preventiva\\eticaempesquisaclinica_raw.md": {
+    "lines_dropped": 2,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "preventiva\\eticamedica_raw.md": {
+    "lines_dropped": 6,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "preventiva\\ferramentasesfeaps_raw.md": {
+    "lines_dropped": 6,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "preventiva\\financiamentodosus_raw.md": {
+    "lines_dropped": 5,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 1,
+    "page_header_footer": 0
+  },
+  "preventiva\\habilidadesdecomunicacao_raw.md": {
+    "lines_dropped": 5,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "preventiva\\indicadoresdesaude_raw.md": {
+    "lines_dropped": 6,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "preventiva\\leiorganica8080_raw.md": {
+    "lines_dropped": 5,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "preventiva\\leiorganica8142_raw.md": {
+    "lines_dropped": 1,
+    "email": 1,
+    "cpf_like": 1,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "preventiva\\mccp_raw.md": {
+    "lines_dropped": 2,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "preventiva\\medicinabaseadaemevidencias_raw.md": {
+    "lines_dropped": 4,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "preventiva\\medicinalegal_raw.md": {
+    "lines_dropped": 7,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "preventiva\\medidasdeassociacao_raw.md": {
+    "lines_dropped": 5,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "preventiva\\metanalise_raw.md": {
+    "lines_dropped": 2,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "preventiva\\niveisdeprevencao_raw.md": {
+    "lines_dropped": 3,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "preventiva\\nobsenoas_raw.md": {
+    "lines_dropped": 4,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "preventiva\\outrostopicossaudecoletiva_raw.md": {
+    "lines_dropped": 7,
+    "email": 7,
+    "cpf_like": 7,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "preventiva\\pactopelasaude_raw.md": {
+    "lines_dropped": 2,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "preventiva\\planejamentonosus_raw.md": {
+    "lines_dropped": 2,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "preventiva\\pneumoconioses_raw.md": {
+    "lines_dropped": 12,
+    "email": 10,
+    "cpf_like": 11,
+    "phone": 0,
+    "page_header_footer": 1
+  },
+  "preventiva\\presus_raw.md": {
+    "lines_dropped": 5,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "preventiva\\principiosdosus_raw.md": {
+    "lines_dropped": 5,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "preventiva\\principiosmfc_raw.md": {
+    "lines_dropped": 2,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "preventiva\\problemaspoliticasesistemasdesaude_raw.md": {
+    "lines_dropped": 5,
+    "email": 5,
+    "cpf_like": 5,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "preventiva\\processosaúdedoença_raw.md": {
+    "lines_dropped": 3,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "preventiva\\rastreamentoprevencaoquaternariaequinquenaria_raw.md": {
+    "lines_dropped": 3,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "preventiva\\redesdeatencaoasaudeeniveisdeatencao_raw.md": {
+    "lines_dropped": 9,
+    "email": 4,
+    "cpf_like": 4,
+    "phone": 0,
+    "page_header_footer": 5
+  },
+  "preventiva\\resoap_raw.md": {
+    "lines_dropped": 2,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "preventiva\\revisaosistematica_raw.md": {
+    "lines_dropped": 2,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "preventiva\\saudedotrabalhador_raw.md": {
+    "lines_dropped": 30,
+    "email": 30,
+    "cpf_like": 30,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "preventiva\\saudemental_raw.md": {
+    "lines_dropped": 3,
+    "email": 3,
+    "cpf_like": 3,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "preventiva\\saudesuplementar_raw.md": {
+    "lines_dropped": 2,
+    "email": 2,
+    "cpf_like": 2,
+    "phone": 0,
+    "page_header_footer": 0
+  },
+  "preventiva\\testesdiagnosticos_raw.md": {
+    "lines_dropped": 41,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 35
+  },
+  "preventiva\\vigilanciaesaude_raw.md": {
+    "lines_dropped": 7,
+    "email": 6,
+    "cpf_like": 6,
+    "phone": 0,
+    "page_header_footer": 1
+  }
+}
