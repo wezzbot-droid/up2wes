@@ -1,0 +1,251 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://uptowes.local/schemas/dataset_chunk.schema.json",
+  "title": "DatasetChunk",
+  "description": "Schema for UpToWes dataset.jsonl record v0.1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "chunk_id",
+    "doc_id",
+    "source",
+    "section_path",
+    "title",
+    "chunk_type",
+    "text_raw",
+    "text_canonical",
+    "bold_spans",
+    "quality_flags",
+    "priority",
+    "hash"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "0.1",
+      "description": "Contract version, must be exactly '0.1'"
+    },
+    "chunk_id": {
+      "type": "string",
+      "pattern": "^[A-Z0-9_]+#L[0-9]+-L[0-9]+#[0-9]+$",
+      "description": "Deterministic ID: DOC_ID#L{start}-L{end}#{ordinal}"
+    },
+    "doc_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unique document identifier"
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "path",
+        "locator"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Relative path to source file"
+        },
+        "locator": {
+          "type": "string",
+          "pattern": "^L[0-9]+-L[0-9]+$",
+          "description": "Line range: L{start}-L{end}"
+        }
+      },
+      "additionalProperties": false
+    },
+    "section_path": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "description": "Hierarchical path: ['AREA', 'TEMA', 'SUBTEMA', ...]"
+    },
+    "title": {
+      "type": "string",
+      "description": "Section title (last item of section_path typically)"
+    },
+    "chunk_type": {
+      "type": "string",
+      "enum": [
+        "text",
+        "definition",
+        "criteria",
+        "classification",
+        "dose",
+        "contraindication",
+        "procedure",
+        "algorithm_step",
+        "table_row"
+      ],
+      "description": "Closed enum of chunk types v0.1"
+    },
+    "subtype": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Optional semantic subtype: epidemiology, diagnosis, treatment, etc."
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Optional tags: tokyo, tnm, high_yield, peds, etc."
+    },
+    "text_raw": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Original text from source (after normalization)"
+    },
+    "text_canonical": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Self-sufficient text with anchor injected"
+    },
+    "bold_spans": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "start",
+          "end",
+          "text"
+        ],
+        "properties": {
+          "start": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Start offset in text_raw"
+          },
+          "end": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "End offset in text_raw"
+          },
+          "text": {
+            "type": "string",
+            "description": "Bold text content"
+          }
+        },
+        "additionalProperties": false
+      },
+      "description": "Preserved bold spans with offsets"
+    },
+    "table": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "table_id": {
+          "type": "string",
+          "description": "Unique table identifier within document"
+        },
+        "row_key": {
+          "type": "string",
+          "description": "Primary key for this row (e.g., T1a for TNM)"
+        },
+        "cells": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "col",
+              "value_raw"
+            ],
+            "properties": {
+              "col": {
+                "type": "string"
+              },
+              "value_raw": {
+                "type": "string"
+              }
+            }
+          },
+          "description": "Cell data as col/value pairs"
+        },
+        "row_text_canonical": {
+          "type": "string",
+          "description": "Human-readable sentence for this row"
+        }
+      },
+      "description": "Table extension for chunk_type='table_row'"
+    },
+    "algorithm": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "algo_id": {
+          "type": "string",
+          "description": "Algorithm identifier"
+        },
+        "step": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Step number in sequence"
+        },
+        "if": {
+          "type": "string",
+          "description": "Condition text"
+        },
+        "then": {
+          "type": "string",
+          "description": "Action if condition true"
+        },
+        "else": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Action if condition false (optional)"
+        }
+      },
+      "description": "Algorithm extension for chunk_type='algorithm_step'"
+    },
+    "quality_flags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Quality issues detected: ocr_artifact, missing_context, etc."
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "normal",
+        "high",
+        "critical"
+      ],
+      "description": "Content priority for retrieval weighting"
+    },
+    "hash": {
+      "type": "object",
+      "required": [
+        "raw_sha1",
+        "canonical_sha1"
+      ],
+      "properties": {
+        "raw_sha1": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$",
+          "description": "SHA1 of text_raw"
+        },
+        "canonical_sha1": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$",
+          "description": "SHA1 of text_canonical"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Integrity hashes for determinism verification"
+    }
+  },
+  "additionalProperties": false
+}

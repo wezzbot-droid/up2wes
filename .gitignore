@@ -1,12 +1,16 @@
+# Python
 .venv/
 __pycache__/
+*.pyc
 .env
 *.log
-dataset/*.jsonl
 
-# Nunca versionar fontes RAW (podem conter PII)
+# Dataset (Artefatos gerados)
+dataset/*.jsonl
+dataset/out/
+dataset/build_report.json
+
+# Segurança (Nunca versionar fontes RAW)
 **/*_raw.md
 **/*raw*.md
-
-# Se você tiver uma pasta privada dentro do repo (opcional)
 dataset/private_raw/
