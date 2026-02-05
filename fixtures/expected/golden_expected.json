@@ -1,0 +1,50 @@
+[
+  {
+    "chunk_id": "DEEP_HEADINGS#L13-L13#1",
+    "text_canonical": "DEEP_HEADINGS > Cirurgia > Abdome agudo > Diagnóstico > Exame físico > Sinais > Sinal de Murphy\nO **Sinal de Murphy** sugere inflamação biliar.",
+    "hash": {
+      "raw_sha1": "f450e3a22f0af15101e08bb89ade3b55138d40ae",
+      "canonical_sha1": "36e6414f0a6d0f680cdb83217644736435837b8b"
+    }
+  },
+  {
+    "chunk_id": "DEEP_HEADINGS#L15-L15#2",
+    "text_canonical": "DEEP_HEADINGS > Cirurgia > Abdome agudo > Diagnóstico > Exame físico > Sinais > Sinal de Murphy\n- Dor no hipocôndrio direito.",
+    "hash": {
+      "raw_sha1": "aa98cb1b3dd886d490d18c33d0ba29d461cfef83",
+      "canonical_sha1": "58840a8a3b6e248891e89e555cef0d7a8d363bd4"
+    }
+  },
+  {
+    "chunk_id": "TABLE_CRITICAL_T2T3#L7-L7#1",
+    "text_canonical": "TABLE_CRITICAL_T2T3 > Estadiamento (TNM) > Tumor primário (T)\nT: **T2**; Definição: Tumor > 7 cm, limitado ao rim",
+    "hash": {
+      "raw_sha1": "f10238654cbe49bea1008e09d710292e19e549ff",
+      "canonical_sha1": "50b8a51d141e144d49e4146bc966beb59ac9ff2a"
+    }
+  },
+  {
+    "chunk_id": "TABLE_CRITICAL_T2T3#L8-L8#2",
+    "text_canonical": "TABLE_CRITICAL_T2T3 > Estadiamento (TNM) > Tumor primário (T)\nT: **T3**; Definição: Tumor invade veia renal/tecidos perirrenais, sem ultrapassar fáscia de Gerota",
+    "hash": {
+      "raw_sha1": "14bd3ba8bee1cca15e11929e16c224f031d9dc1b",
+      "canonical_sha1": "417c7f6c0522b51b76dd7bdcd2286921a951926c"
+    }
+  },
+  {
+    "chunk_id": "TABLE_WITH_BR#L5-L5#1",
+    "text_canonical": "TABLE_WITH_BR > Antibioticoterapia\nDroga: Ceftriaxona; Dose: 1 g EV 1x/dia<br/>Ajustar na insuficiência renal",
+    "hash": {
+      "raw_sha1": "2a2f4a67874aae98d4dc5c235ac8e2598ea2765e",
+      "canonical_sha1": "b5661beb76af943443677f10b41d32b255a9d382"
+    }
+  },
+  {
+    "chunk_id": "TABLE_WITH_BR#L6-L6#2",
+    "text_canonical": "TABLE_WITH_BR > Antibioticoterapia\nDroga: Metronidazol; Dose: 500 mg EV 8/8h",
+    "hash": {
+      "raw_sha1": "814a88b818c26b40adc5a87911fc52ebb71d86af",
+      "canonical_sha1": "7df31164d54d4c207353a2fb62a78682851eebc1"
+    }
+  }
+]

@@ -287,6 +287,13 @@ def main() -> int:
     ap.add_argument("--report", required=True)
     args = ap.parse_args()
 
+    # -------------------------
+    # Hygiene: garante dirs padrão do repo (artifacts não versionados)
+    # -------------------------
+    repo_root = Path(__file__).resolve().parents[1]
+    (repo_root / "dataset").mkdir(parents=True, exist_ok=True)
+    (repo_root / "dataset" / "out").mkdir(parents=True, exist_ok=True)
+
     input_root = Path(args.input).resolve()
     schema_path = Path(args.schema).resolve()
     out_path = Path(args.out).resolve()
