@@ -4,7 +4,7 @@ import os
 import math
 import re
 from dataclasses import dataclass
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Set, Tuple
 
 import psycopg
 
@@ -13,6 +13,7 @@ from uptowes.lexicon_runtime import (
     load_lexicon,
     build_tsquery_from_groups,
     group_coverage,
+    tokens as lex_tokens,
 )
 
 
@@ -30,9 +31,44 @@ class Hit:
     score_lex: float
     score: float
     lex_mode: str                  # STRICT | RELAX | STRICT_GROUPS | RELAX_GROUPS | NONE
+    lex_tsquery_groups_str: str = ""
+    lex_rest_text: str = ""
 
 
 _WORD_RE = re.compile(r"[0-9A-Za-zÀ-ÿ]+")
+_GENERIC_QUERY_TERMS = {
+    "sindrome",
+    "criterio",
+    "criterios",
+    "diagnostico",
+    "diagnosticos",
+    "tratamento",
+    "conduta",
+    "tipo",
+    "grau",
+    "classificacao",
+    "classificacoes",
+    "guideline",
+    "guidelines",
+    "protocolo",
+    "manejo",
+    "indicacao",
+    "indicacoes",
+}
+_DISCRIMINATIVE_WHITELIST = {
+    "tokyo",
+    "cpre",
+    "ercp",
+    "alvarado",
+    "hinchey",
+    "mirizzi",
+    "csendes",
+    "figo",
+    "tnm",
+    "bisap",
+    "apache",
+    "ranson",
+}
 
 
 def _clamp01(x: float) -> float:
@@ -50,6 +86,68 @@ def _normalize_scores(scores: List[float]) -> List[float]:
     if mx <= 0:
         return [0.0 for _ in scores]
     return [float(s) / float(mx) for s in scores]
+
+
+def _unique_preserve(items: List[str]) -> List[str]:
+    seen: Set[str] = set()
+    out: List[str] = []
+    for it in items:
+        if it in seen:
+            continue
+        seen.add(it)
+        out.append(it)
+    return out
+
+
+def _query_terms(query: str) -> List[str]:
+    return _unique_preserve([t for t in lex_tokens(query) if t])
+
+
+def _coverage_ratio(text: str, query: str) -> float:
+    q_terms = _query_terms(query)
+    if not q_terms:
+        return 0.0
+    txt_terms = set(_query_terms(text))
+    if not txt_terms:
+        return 0.0
+    hits = sum(1 for t in q_terms if t in txt_terms)
+    return float(hits) / float(len(q_terms))
+
+
+def _dedupe_by_chunk_id_keep_best(rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    best: Dict[str, Dict[str, Any]] = {}
+    for r in rows:
+        cid = str(r.get("chunk_id") or "")
+        if not cid:
+            continue
+        cur = best.get(cid)
+        score = float(r.get("score_lex") or 0.0)
+        if cur is None or score > float(cur.get("score_lex") or 0.0):
+            best[cid] = r
+    return list(best.values())
+
+
+def _is_discriminative_term(term: str) -> bool:
+    t = (term or "").strip().lower()
+    if not t:
+        return False
+    if t in _DISCRIMINATIVE_WHITELIST:
+        return True
+    if t in _GENERIC_QUERY_TERMS:
+        return False
+    return len(t) >= 6
+
+
+def _is_groups_query_poor(
+    anchor_token: Optional[str],
+    must_groups: List[set[str]],
+    discriminative_terms: List[str],
+    tsquery_groups_str: str,
+) -> bool:
+    if not (tsquery_groups_str or "").strip():
+        return True
+    anchor = (anchor_token or "").strip().lower()
+    return len(must_groups) <= 1 and anchor in _GENERIC_QUERY_TERMS and not discriminative_terms
 
 
 def _has_column(conn: psycopg.Connection, table: str, column: str) -> bool:
@@ -182,6 +280,7 @@ def _lex_search_groups(
     conn: psycopg.Connection,
     table: str,
     tsquery_str: str,
+    rest_text: str,
     limit: int,
     use_unaccent: bool = True,
 ) -> List[Dict[str, Any]]:
@@ -207,22 +306,43 @@ SELECT
   title,
   chunk_type,
   {text_col} AS text,
-  ts_rank_cd({tsv_col}, q.tq) AS score_lex
-FROM {table}, q
-WHERE {tsv_col} @@ q.tq
-ORDER BY score_lex DESC, chunk_id ASC
+  (ts_rank({tsv_col}, q.qg) + 0.25 * ts_rank({tsv_col}, q.qr)) AS score_lex
+FROM {table} c
+CROSS JOIN q
+WHERE
+  q.qg <> ''::tsquery
+  AND c.{tsv_col} @@ q.qg
+ORDER BY score_lex DESC, c.chunk_id ASC
 LIMIT %s
 """.strip()
 
     if use_unaccent:
-        cte = "WITH q AS (SELECT to_tsquery('portuguese', unaccent(%s)) AS tq)"
+        cte = """
+WITH q AS (
+  SELECT
+    to_tsquery('portuguese', unaccent(%s)) AS qg,
+    CASE
+      WHEN %s = '' THEN ''::tsquery
+      ELSE plainto_tsquery('portuguese', unaccent(%s))
+    END AS qr
+)
+""".strip()
     else:
-        cte = "WITH q AS (SELECT to_tsquery('portuguese', %s) AS tq)"
+        cte = """
+WITH q AS (
+  SELECT
+    to_tsquery('portuguese', %s) AS qg,
+    CASE
+      WHEN %s = '' THEN ''::tsquery
+      ELSE plainto_tsquery('portuguese', %s)
+    END AS qr
+)
+""".strip()
 
     sql = cte + "\n" + base_sql
 
     with conn.cursor() as cur:
-        cur.execute(sql, (tsquery_str, limit))
+        cur.execute(sql, (tsquery_str, rest_text, rest_text, limit))
         cols = [c.name for c in cur.description]
         return [dict(zip(cols, r)) for r in cur.fetchall()]
 
@@ -260,12 +380,42 @@ def hybrid_search(
     anchor_token: Optional[str] = None
     must_groups: List[set[str]] = []
     rare_group_ids: set[str] = set()
-    tsquery_str = ""
+    rest_terms: set[str] = set()
+    tsquery_groups_str = ""
+    rest_text = ""
+    discriminative_terms: List[str] = []
     if lexicon_path:
         try:
             lex = load_lexicon(lexicon_path)
-            anchor_token, must_groups, rare_group_ids = lex.expand_query(q)
-            tsquery_str = build_tsquery_from_groups(must_groups)
+            expanded = lex.expand_query(q)
+            if isinstance(expanded, tuple) and len(expanded) >= 4:
+                anchor_token = expanded[0]
+                must_groups = expanded[1]
+                rare_group_ids = set(expanded[2] or set())
+                rest_terms = set(expanded[3] or set())
+            else:
+                anchor_token, must_groups, rare_group_ids = expanded
+            matched_terms = {t for g in must_groups for t in g if t}
+
+            # Fallback equivalente: termos da query que nao foram absorvidos pelos grupos.
+            query_terms = _query_terms(q)
+            if not rest_terms:
+                rest_terms = {t for t in query_terms if t and t not in matched_terms}
+
+            # Preserva ordem da query para evitar escolher termo pouco útil primeiro.
+            rest_terms_ordered = [t for t in query_terms if t in rest_terms and t not in matched_terms]
+            rest_terms_ordered = _unique_preserve(rest_terms_ordered)
+            rest_text = " ".join(rest_terms_ordered)
+
+            base_groups_tsquery = build_tsquery_from_groups(must_groups)
+            discriminative_terms = [t for t in rest_terms_ordered if _is_discriminative_term(t)][:2]
+            if base_groups_tsquery and discriminative_terms:
+                if len(discriminative_terms) == 1:
+                    tsquery_groups_str = f"({base_groups_tsquery}) & {discriminative_terms[0]}"
+                else:
+                    tsquery_groups_str = f"({base_groups_tsquery}) & ({' | '.join(discriminative_terms)})"
+            else:
+                tsquery_groups_str = base_groups_tsquery
         except Exception as exc:
             raise RuntimeError(f"Failed to load lexicon from '{lexicon_path}'") from exc
 
@@ -289,6 +439,12 @@ def hybrid_search(
         total_groups = len(must_groups)
         strict_min_group_hits = total_groups
         relax_min_group_hits = total_groups if total_groups < 3 else int(math.ceil(0.67 * total_groups))
+        groups_query_poor = _is_groups_query_poor(
+            anchor_token=anchor_token,
+            must_groups=must_groups,
+            discriminative_terms=discriminative_terms,
+            tsquery_groups_str=tsquery_groups_str,
+        )
 
         def _apply_group_gates(rows: List[Dict[str, Any]], min_group_hits: int) -> List[Dict[str, Any]]:
             if not rows:
@@ -314,11 +470,51 @@ def hybrid_search(
 
             return kept
 
-        # STRICT_GROUPS: AND entre grupos (OR dentro de grupo) + cobertura 100%
-        if tsquery_str:
-            strict_rows_ct = _lex_search_groups(conn, "chunks_text", tsquery_str, lex_k, use_unaccent=use_unaccent)
-            strict_rows_tr = _lex_search_groups(conn, "table_rows", tsquery_str, lex_k, use_unaccent=use_unaccent)
-            strict_rows = _apply_group_gates(strict_rows_ct + strict_rows_tr, strict_min_group_hits)
+        # STRICT_GROUPS (MVP): 2-pass (GROUPS + STRICT(rest_text)) + merge + rerank determinístico.
+        strict_fetch_k = max(lex_k * 10, lex_k)
+        strict_groups_rows: List[Dict[str, Any]] = []
+        if tsquery_groups_str and not groups_query_poor:
+            strict_rows_ct = _lex_search_groups(
+                conn,
+                "chunks_text",
+                tsquery_groups_str,
+                rest_text,
+                strict_fetch_k,
+                use_unaccent=use_unaccent,
+            )
+            strict_rows_tr = _lex_search_groups(
+                conn,
+                "table_rows",
+                tsquery_groups_str,
+                rest_text,
+                strict_fetch_k,
+                use_unaccent=use_unaccent,
+            )
+            strict_groups_rows = strict_rows_ct + strict_rows_tr
+
+        strict_rest_rows: List[Dict[str, Any]] = []
+        if rest_text:
+            strict_rest_ct, strict_mode_ct = _lex_search_strict_or_relax(conn, "chunks_text", rest_text, strict_fetch_k)
+            strict_rest_tr, strict_mode_tr = _lex_search_strict_or_relax(conn, "table_rows", rest_text, strict_fetch_k)
+            if strict_mode_ct == "STRICT":
+                strict_rest_rows.extend(strict_rest_ct)
+            if strict_mode_tr == "STRICT":
+                strict_rest_rows.extend(strict_rest_tr)
+
+        strict_merged = _dedupe_by_chunk_id_keep_best(strict_groups_rows + strict_rest_rows)
+        for r in strict_merged:
+            r["_cov_ratio"] = _coverage_ratio(str(r.get("text") or ""), q)
+        strict_merged.sort(
+            key=lambda r: (
+                -float(r.get("_cov_ratio") or 0.0),
+                -float(r.get("score_lex") or 0.0),
+                str(r.get("chunk_id") or ""),
+            )
+        )
+
+        strict_rows = _apply_group_gates(strict_merged, strict_min_group_hits)
+        if strict_rows:
+            strict_rows = strict_rows[:lex_k]
         else:
             strict_rows = []
 
@@ -326,13 +522,22 @@ def hybrid_search(
             lex_rows = strict_rows
             lex_mode = "STRICT_GROUPS"
         else:
-            # RELAX_GROUPS: baseline STRICT/RELAX + gate mínimo por grupos
-            relax_rows_ct, _ = _lex_search_strict_or_relax(conn, "chunks_text", q, lex_k)
-            relax_rows_tr, _ = _lex_search_strict_or_relax(conn, "table_rows", q, lex_k)
-            relax_rows = _apply_group_gates(relax_rows_ct + relax_rows_tr, relax_min_group_hits)
-            if relax_rows:
-                lex_rows = relax_rows
-                lex_mode = "RELAX_GROUPS"
+            if groups_query_poor:
+                # Fallback seguro: evita query de grupos genérica (ex.: apenas "sindrome").
+                fallback_rows_ct, mode_ct = _lex_search_strict_or_relax(conn, "chunks_text", q, lex_k)
+                fallback_rows_tr, mode_tr = _lex_search_strict_or_relax(conn, "table_rows", q, lex_k)
+                fallback_rows = fallback_rows_ct + fallback_rows_tr
+                if fallback_rows:
+                    lex_rows = fallback_rows
+                    lex_mode = "RELAX" if ("RELAX" in (mode_ct, mode_tr)) else "STRICT"
+            else:
+                # RELAX_GROUPS: baseline STRICT/RELAX + gate mínimo por grupos
+                relax_rows_ct, _ = _lex_search_strict_or_relax(conn, "chunks_text", q, lex_k)
+                relax_rows_tr, _ = _lex_search_strict_or_relax(conn, "table_rows", q, lex_k)
+                relax_rows = _apply_group_gates(relax_rows_ct + relax_rows_tr, relax_min_group_hits)
+                if relax_rows:
+                    lex_rows = relax_rows
+                    lex_mode = "RELAX_GROUPS"
     else:
         # Sem lexicon: comportamento legado
         lex_rows_ct, lex_mode_ct = _lex_search_strict_or_relax(conn, "chunks_text", q, lex_k)
@@ -395,6 +600,8 @@ def hybrid_search(
                 score_lex=score_lex,
                 score=score,
                 lex_mode=lex_mode,
+                lex_tsquery_groups_str=tsquery_groups_str,
+                lex_rest_text=rest_text,
             )
         )
 
