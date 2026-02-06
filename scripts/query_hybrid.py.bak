@@ -1,0 +1,236 @@
+from __future__ import annotations
+
+import argparse
+import re
+import sys
+import unicodedata
+from pathlib import Path
+from typing import List, Tuple
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+SRC = REPO_ROOT / "src"
+if str(SRC) not in sys.path:
+    sys.path.insert(0, str(SRC))
+
+from uptowes.db import connect
+from uptowes.retrieval import hybrid_search
+
+
+STOPWORDS = {
+    "a", "o", "as", "os", "um", "uma",
+    "de", "da", "do", "das", "dos",
+    "e", "ou", "em", "no", "na", "nos", "nas",
+    "para", "por", "com", "sem",
+    "ao", "aos", "à", "às",
+    "que", "se", "ser", "estar",
+}
+
+# termos "raros" úteis no teu domínio (pode crescer depois)
+DOMAIN_RARE_HINTS = {
+    "antibioticoterapia", "tokyo", "hinchey", "alvarado", "cpre", "ercp",
+    "figo", "tnm", "ranson", "apache", "bisap", "glasgow",
+}
+
+
+def strip_accents(s: str) -> str:
+    s = unicodedata.normalize("NFD", s)
+    return "".join(ch for ch in s if unicodedata.category(ch) != "Mn")
+
+
+def normalize_for_terms(s: str) -> str:
+    s = strip_accents(s.lower())
+    s = re.sub(r"[^a-z0-9]+", " ", s)
+    return re.sub(r"\s+", " ", s).strip()
+
+
+def extract_terms(query: str) -> List[str]:
+    s = normalize_for_terms(query)
+    terms = [t for t in s.split(" ") if t and t not in STOPWORDS and len(t) >= 3]
+    return terms
+
+
+def pick_anchor(terms: List[str]) -> str | None:
+    # "âncora" = primeiro termo razoável (normalmente a doença/assunto)
+    for t in terms:
+        if t not in STOPWORDS and len(t) >= 4:
+            return t
+    return terms[0] if terms else None
+
+
+def is_must_term(t: str) -> bool:
+    # heurística determinística: termo longo, contém dígito, ou está em hints
+    return (len(t) >= 8) or any(ch.isdigit() for ch in t) or (t in DOMAIN_RARE_HINTS)
+
+
+def reduce_query(original_query: str) -> Tuple[str, List[str], List[str]]:
+    """
+    Retorna (reduced_query, terms, must_terms)
+    reduced_query tenta ficar "anchor + must_terms" mantendo ordem original.
+    """
+    terms = extract_terms(original_query)
+    must = [t for t in terms if is_must_term(t)]
+    anchor = pick_anchor(terms)
+
+    if not terms or not anchor:
+        return original_query, terms, must
+
+    keep_set = {anchor, *must}
+    reduced_terms = []
+    seen = set()
+    for t in terms:
+        if t in keep_set and t not in seen:
+            reduced_terms.append(t)
+            seen.add(t)
+
+    # se não reduziu de verdade, mantém
+    reduced_query = " ".join(reduced_terms) if reduced_terms else original_query
+    if reduced_query == " ".join(terms) or len(reduced_terms) < 2:
+        return original_query, terms, must
+
+    return reduced_query, terms, must
+
+
+def term_coverage(snippet: str, terms: List[str]) -> Tuple[int, int]:
+    """
+    Conta quantos termos (normalizados) aparecem no snippet (normalizado).
+    """
+    if not terms:
+        return 0, 0
+    sn = normalize_for_terms(snippet)
+    hits = 0
+    for t in terms:
+        if t in sn:
+            hits += 1
+    return hits, len(terms)
+
+
+def must_term_present(snippet: str, must_terms: List[str]) -> bool:
+    if not must_terms:
+        return False
+    sn = normalize_for_terms(snippet)
+    return any(t in sn for t in must_terms)
+
+
+def precision_gate(hits, must_terms: List[str], terms: List[str]):
+    """
+    Se RELAX: só aceita hits que contenham pelo menos 1 must_term.
+    Se não houver must_terms, exige pelo menos 2 termos batendo no snippet.
+    """
+    if not hits:
+        return hits
+
+    lex_mode = hits[0].lex_mode
+    if lex_mode != "RELAX":
+        return hits
+
+    filtered = []
+    for h in hits:
+        snippet = h.text or ""
+        if must_terms:
+            if must_term_present(snippet, must_terms):
+                filtered.append(h)
+        else:
+            cov, total = term_coverage(snippet, terms)
+            if cov >= 2:
+                filtered.append(h)
+
+    return filtered
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--query", required=True)
+    ap.add_argument("--top", type=int, default=8)
+    ap.add_argument("--w-vec", type=float, default=0.6)
+    ap.add_argument("--w-lex", type=float, default=0.4)
+    ap.add_argument("--embed-model", default="nomic-embed-text")
+    ap.add_argument("--lex-only", action="store_true", help="Disable vector search (no Ollama needed).")
+    args = ap.parse_args()
+
+    enable_vector = not args.lex_only
+    w_vec = 0.0 if args.lex_only else args.w_vec
+    w_lex = 1.0 if args.lex_only else args.w_lex
+
+    orig_query = args.query
+    reduced_query, terms, must_terms = reduce_query(orig_query)
+
+    with connect() as conn:
+        # 1) primeira tentativa: query original
+        hits = hybrid_search(
+            conn,
+            orig_query,
+            top=args.top,
+            w_vec=w_vec,
+            w_lex=w_lex,
+            embed_model=args.embed_model,
+            enable_vector=enable_vector,
+        )
+
+        used_query = orig_query
+        used_reduction = False
+
+        # 2) se caiu em RELAX e existe reduced_query, tenta de novo com a reduzida
+        if hits and hits[0].lex_mode == "RELAX" and reduced_query != orig_query:
+            hits2 = hybrid_search(
+                conn,
+                reduced_query,
+                top=args.top,
+                w_vec=w_vec,
+                w_lex=w_lex,
+                embed_model=args.embed_model,
+                enable_vector=enable_vector,
+            )
+            if hits2:
+                hits = hits2
+                used_query = reduced_query
+                used_reduction = True
+
+    # gate de precisão (principalmente quando ainda estiver RELAX)
+    hits_before = len(hits)
+    hits = precision_gate(hits, must_terms=must_terms, terms=terms)
+    hits_after = len(hits)
+
+    mode = "LEX_ONLY" if args.lex_only else "HYBRID"
+    lex_mode = hits[0].lex_mode if hits else ("NONE" if hits_before == 0 else "RELAX_FILTERED_TO_ZERO")
+
+    print("\n=== Retrieval Results (evidence pointers only) ===")
+    print(f"mode={mode} (no patient-specific guidance)")
+    print(f"query_original={orig_query!r}")
+    print(f"query_effective={used_query!r}" + ("  [QUERY_REDUCED]" if used_reduction else ""))
+    print(f"lex_mode={lex_mode}  (STRICT=AND; RELAX=OR fallback when STRICT returns 0 hits)")
+    if must_terms:
+        print(f"must_terms={must_terms}")
+    if hits_before != hits_after:
+        print(f"precision_gate: kept={hits_after} dropped={hits_before - hits_after}")
+
+    if not args.lex_only:
+        print(f"embed_model={args.embed_model} w_vec={w_vec:.2f} w_lex={w_lex:.2f}")
+    else:
+        print("embeddings=disabled w_vec=0.00 w_lex=1.00")
+
+    print("\nNOTE: This is retrieval evidence (chunk_id + source), not clinical instruction.\n")
+
+    if not hits:
+        print("[NO_HITS] (either none found, or RELAX results were filtered by precision gate)\n")
+        return 0
+
+    for i, h in enumerate(hits, start=1):
+        snippet = (h.text or "").replace("\n", " ").strip()
+        snippet = (snippet[:220] + "...") if len(snippet) > 220 else snippet
+        cov, total = term_coverage(snippet, extract_terms(used_query))
+        cov_str = f"cov={cov}/{total}" if total else "cov=0/0"
+        print(
+            f"{i}. score={h.score:.3f} vec={h.score_vec:.3f} lex={h.score_lex:.3f} "
+            f"lex_mode={h.lex_mode} {cov_str} [{h.source_table}] {h.chunk_id}"
+        )
+        print(
+            f"   doc={h.doc_id} path={h.source_path} loc={h.locator} "
+            f"title={h.title} type={h.chunk_type}"
+        )
+        print(f"   {snippet}\n")
+
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

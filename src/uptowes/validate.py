@@ -6,8 +6,14 @@ import json
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Tuple
 
-import jsonschema
 from jsonschema import Draft202012Validator
+
+from uptowes.lexicon.qa import (
+    Issue,
+    iter_dataset_tokens,
+    load_lexicon_module,
+    validate_lexicon,
+)
 
 
 def load_schema(schema_path: Path) -> Dict[str, Any]:
@@ -35,16 +41,61 @@ def validate_jsonl(jsonl_path: Path, schema_path: Path) -> int:
             print(f"[INVALID] {cid}: {msg}")
         print(f"\nTotal errors: {len(errors)}")
         return 2
-    print("OK: dataset.jsonl válido no schema.")
+    print("[OK] dataset.jsonl válido no schema.")
+    return 0
+
+
+def validate_lexicon_file(lexicon_path: Path, dataset_jsonl: Path, max_variants: int) -> int:
+    mod = load_lexicon_module(lexicon_path)
+    lex_groups = mod["LEX_GROUPS"]
+    short_allowlist = mod["SHORT_TOKEN_ALLOWLIST"]
+
+    print(f"[INFO] building dataset token set from: {dataset_jsonl}")
+    ds_tokens = iter_dataset_tokens(dataset_jsonl)
+    print(f"[INFO] dataset_tokens size={len(ds_tokens)}")
+
+    issues: List[Issue] = validate_lexicon(
+        lex_groups,
+        short_allowlist,
+        dataset_tokens=ds_tokens,
+        max_variants=max_variants,
+    )
+
+    if issues:
+        print(f"[INVALID] lexicon={lexicon_path} issues={len(issues)}")
+        for it in sorted(issues, key=lambda x: (x.code, x.message))[:200]:
+            print(f"- {it.code}: {it.message}")
+        return 2
+
+    print(f"[OK] lexicon válido: {lexicon_path}")
     return 0
 
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--jsonl", required=True, help="Caminho do dataset.jsonl")
-    ap.add_argument("--schema", required=True, help="Caminho do dataset_chunk.schema.json")
+    ap.add_argument("--jsonl", help="Caminho do dataset.jsonl (chunks.jsonl)")
+    ap.add_argument("--schema", help="Caminho do dataset_chunk.schema.json")
+    ap.add_argument("--lexicon", help="Caminho do lexicon .py (ex.: src/uptowes/lexicon/ptbr_surgery_v1.py)")
+    ap.add_argument("--max-variants", type=int, default=6)
+
     args = ap.parse_args()
-    raise SystemExit(validate_jsonl(Path(args.jsonl), Path(args.schema)))
+
+    # modo 1: valida schema do dataset
+    if args.jsonl and args.schema and not args.lexicon:
+        raise SystemExit(validate_jsonl(Path(args.jsonl), Path(args.schema)))
+
+    # modo 2: valida lexicon contra dataset tokens
+    if args.lexicon and args.jsonl:
+        raise SystemExit(
+            validate_lexicon_file(
+                lexicon_path=Path(args.lexicon),
+                dataset_jsonl=Path(args.jsonl),
+                max_variants=args.max_variants,
+            )
+        )
+
+    ap.print_help()
+    raise SystemExit(2)
 
 
 if __name__ == "__main__":

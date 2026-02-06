@@ -1,0 +1,75 @@
+from scripts._bootstrap import *  # noqa: F401,F403
+#!/usr/bin/env python3
+# scripts/query_hybrid.py
+from __future__ import annotations
+
+import argparse
+import os
+import psycopg
+
+from uptowes.db import connect
+from uptowes.retrieval import hybrid_search
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--query", required=True, help="Query string")
+    ap.add_argument("--top", type=int, default=8, help="Top K results")
+    ap.add_argument("--lex-only", action="store_true", help="Disable vector; lexical only")
+    ap.add_argument("--w-vec", type=float, default=0.6)
+    ap.add_argument("--w-lex", type=float, default=0.4)
+    args = ap.parse_args()
+
+    q = (args.query or "").strip()
+    if not q:
+        print("[FATAL] empty query")
+        return 2
+
+    # Conexão DB (usa a mesma config do projeto)
+    conn = connect()
+
+    enable_vector = not args.lex_only
+    w_vec = 0.0 if args.lex_only else float(args.w_vec)
+    w_lex = 1.0 if args.lex_only else float(args.w_lex)
+
+    lexicon = os.environ.get("UPTOWES_LEXICON", "").strip()
+
+    print("\n=== Retrieval Results (evidence pointers only) ===")
+    print("mode=" + ("LEX_ONLY" if args.lex_only else "HYBRID"))
+    print(f"query='{q}'")
+    print(f"top={args.top}  enable_vector={enable_vector}  w_vec={w_vec:.2f}  w_lex={w_lex:.2f}")
+    print(f"UPTOWES_LEXICON={lexicon if lexicon else '(not set)'}")
+    print("\nNOTE: This is retrieval evidence (chunk_id + source), not clinical instruction.\n")
+
+    hits = hybrid_search(
+        conn=conn,
+        query=q,
+        top=int(args.top),
+        w_vec=w_vec,
+        w_lex=w_lex,
+        enable_vector=enable_vector,
+    )
+
+    if not hits:
+        print("[NO_HITS]")
+        return 0
+
+    # lex_mode vem em cada Hit; eles devem ser iguais (mesmo batch)
+    lex_mode = hits[0].lex_mode
+    print(f"lex_mode={lex_mode}\n")
+
+    for i, h in enumerate(hits, start=1):
+        snippet = (h.text or "").strip().replace("\n", " ")
+        if len(snippet) > 220:
+            snippet = snippet[:220] + "..."
+
+        print(f"{i}. score={h.score:.3f} vec={h.score_vec:.3f} lex={h.score_lex:.3f} lex_mode={h.lex_mode} [{h.source_table}] {h.chunk_id}")
+        print(f"   doc={h.doc_id} path={h.source_path} loc={h.locator} title={h.title} type={h.chunk_type}")
+        print(f"   {snippet}\n")
+
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+

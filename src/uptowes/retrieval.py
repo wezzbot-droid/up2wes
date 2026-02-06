@@ -1,0 +1,402 @@
+﻿from __future__ import annotations
+
+import os
+import math
+import re
+from dataclasses import dataclass
+from typing import Any, Dict, List, Optional, Tuple
+
+import psycopg
+
+from uptowes.embeddings import ollama_embed
+from uptowes.lexicon_runtime import (
+    load_lexicon,
+    build_tsquery_from_groups,
+    group_coverage,
+)
+
+
+@dataclass(frozen=True)
+class Hit:
+    source_table: str              # chunks_text | table_rows
+    chunk_id: str
+    doc_id: str
+    source_path: str
+    locator: str
+    title: str
+    chunk_type: str
+    text: str
+    score_vec: float
+    score_lex: float
+    score: float
+    lex_mode: str                  # STRICT | RELAX | STRICT_GROUPS | RELAX_GROUPS | NONE
+
+
+_WORD_RE = re.compile(r"[0-9A-Za-zÀ-ÿ]+")
+
+
+def _clamp01(x: float) -> float:
+    if x < 0.0:
+        return 0.0
+    if x > 1.0:
+        return 1.0
+    return x
+
+
+def _normalize_scores(scores: List[float]) -> List[float]:
+    if not scores:
+        return []
+    mx = max(scores)
+    if mx <= 0:
+        return [0.0 for _ in scores]
+    return [float(s) / float(mx) for s in scores]
+
+
+def _has_column(conn: psycopg.Connection, table: str, column: str) -> bool:
+    sql = """
+    SELECT 1
+    FROM information_schema.columns
+    WHERE table_name=%s AND column_name=%s
+    LIMIT 1;
+    """
+    with conn.cursor() as cur:
+        cur.execute(sql, (table, column))
+        return cur.fetchone() is not None
+
+
+def _has_unaccent(conn: psycopg.Connection) -> bool:
+    with conn.cursor() as cur:
+        cur.execute("SELECT 1 FROM pg_extension WHERE extname='unaccent' LIMIT 1;")
+        return cur.fetchone() is not None
+
+
+def _vector_search(conn: psycopg.Connection, table: str, query_vec: list[float], limit: int) -> List[Dict[str, Any]]:
+    if table == "chunks_text":
+        sql = """
+        SELECT
+          'chunks_text' AS source_table,
+          chunk_id, doc_id, source_path, locator, title, chunk_type,
+          text_canonical AS text,
+          (1 - (embedding <=> %s)) AS score_vec
+        FROM chunks_text
+        WHERE embedding IS NOT NULL
+        ORDER BY embedding <=> %s
+        LIMIT %s;
+        """
+    else:
+        sql = """
+        SELECT
+          'table_rows' AS source_table,
+          chunk_id, doc_id, source_path, locator, title, chunk_type,
+          row_text_canonical AS text,
+          (1 - (embedding <=> %s)) AS score_vec
+        FROM table_rows
+        WHERE embedding IS NOT NULL
+        ORDER BY embedding <=> %s
+        LIMIT %s;
+        """
+
+    with conn.cursor() as cur:
+        cur.execute(sql, (query_vec, query_vec, limit))
+        cols = [c.name for c in cur.description]
+        return [dict(zip(cols, row)) for row in cur.fetchall()]
+
+
+def _lex_search_strict_or_relax(conn: psycopg.Connection, table: str, query: str, limit: int) -> Tuple[List[Dict[str, Any]], str]:
+    """
+    Deterministic lexical strategy:
+    1) STRICT: plainto_tsquery (AND)
+    2) if 0 hits: RELAX: websearch_to_tsquery with tokens joined by " OR " (still dictionary-aware)
+
+    Also prefers content_tsv_u when present (accent-insensitive precomputed tsvector).
+    """
+    q = (query or "").strip()
+    if not q:
+        return ([], "NONE")
+
+    use_unaccent = _has_unaccent(conn)
+
+    # Prefer unaccented tsvector if migration 002 applied
+    tsv_col = "content_tsv_u" if _has_column(conn, table, "content_tsv_u") else "content_tsv"
+
+    if table == "chunks_text":
+        text_col = "text_canonical"
+        base_sql = f"""
+        SELECT
+          'chunks_text' AS source_table,
+          chunk_id, doc_id, source_path, locator, title, chunk_type,
+          {text_col} AS text,
+          ts_rank_cd({tsv_col}, q.tq) AS score_lex
+        FROM chunks_text, q
+        WHERE {tsv_col} @@ q.tq
+        ORDER BY score_lex DESC
+        LIMIT %s;
+        """
+    else:
+        text_col = "row_text_canonical"
+        base_sql = f"""
+        SELECT
+          'table_rows' AS source_table,
+          chunk_id, doc_id, source_path, locator, title, chunk_type,
+          {text_col} AS text,
+          ts_rank_cd({tsv_col}, q.tq) AS score_lex
+        FROM table_rows, q
+        WHERE {tsv_col} @@ q.tq
+        ORDER BY score_lex DESC
+        LIMIT %s;
+        """
+
+    # STRICT (AND)
+    if use_unaccent:
+        strict_cte = "WITH q AS (SELECT plainto_tsquery('portuguese', unaccent(%s)) AS tq)"
+    else:
+        strict_cte = "WITH q AS (SELECT plainto_tsquery('portuguese', %s) AS tq)"
+    strict_sql = strict_cte + "\n" + base_sql
+
+    with conn.cursor() as cur:
+        cur.execute(strict_sql, (q, limit))
+        rows = cur.fetchall()
+        if rows:
+            cols = [c.name for c in cur.description]
+            return ([dict(zip(cols, r)) for r in rows], "STRICT")
+
+    # RELAX (OR)
+    tokens = _WORD_RE.findall(q)
+    if not tokens:
+        tokens = [q]
+    q_or = " OR ".join(tokens)
+
+    if use_unaccent:
+        relax_cte = "WITH q AS (SELECT websearch_to_tsquery('portuguese', unaccent(%s)) AS tq)"
+    else:
+        relax_cte = "WITH q AS (SELECT websearch_to_tsquery('portuguese', %s) AS tq)"
+    relax_sql = relax_cte + "\n" + base_sql
+
+    with conn.cursor() as cur:
+        cur.execute(relax_sql, (q_or, limit))
+        cols = [c.name for c in cur.description]
+        return ([dict(zip(cols, r)) for r in cur.fetchall()], "RELAX")
+
+
+def _lex_search_groups(
+    conn: psycopg.Connection,
+    table: str,
+    tsquery_str: str,
+    limit: int,
+    use_unaccent: bool = True,
+) -> List[Dict[str, Any]]:
+    """
+    Busca lexical usando um tsquery já montado (AND/OR).
+    Usa to_tsquery('portuguese', <tsquery_str>).
+    """
+    # preferir content_tsv_u quando existir (mesma lógica do strict/relax)
+    tsv_col = "content_tsv_u" if _has_column(conn, table, "content_tsv_u") else "content_tsv"
+
+    if table == "chunks_text":
+        text_col = "text_canonical"
+    else:
+        text_col = "row_text_canonical"
+
+    base_sql = f"""
+SELECT
+  '{table}'::text AS source_table,
+  chunk_id,
+  doc_id,
+  source_path,
+  locator,
+  title,
+  chunk_type,
+  {text_col} AS text,
+  ts_rank_cd({tsv_col}, q.tq) AS score_lex
+FROM {table}, q
+WHERE {tsv_col} @@ q.tq
+ORDER BY score_lex DESC, chunk_id ASC
+LIMIT %s
+""".strip()
+
+    if use_unaccent:
+        cte = "WITH q AS (SELECT to_tsquery('portuguese', unaccent(%s)) AS tq)"
+    else:
+        cte = "WITH q AS (SELECT to_tsquery('portuguese', %s) AS tq)"
+
+    sql = cte + "\n" + base_sql
+
+    with conn.cursor() as cur:
+        cur.execute(sql, (tsquery_str, limit))
+        cols = [c.name for c in cur.description]
+        return [dict(zip(cols, r)) for r in cur.fetchall()]
+
+
+def hybrid_search(
+    conn: psycopg.Connection,
+    query: str,
+    top: int = 8,
+    w_vec: float = 0.6,
+    w_lex: float = 0.4,
+    vec_k: Optional[int] = None,
+    lex_k: Optional[int] = None,
+    embed_model: Optional[str] = None,
+    enable_vector: bool = True,
+) -> List[Hit]:
+    """
+    Retrieval híbrido (lex + vetor), com estratégia determinística:
+
+    1) Sem lexicon: STRICT -> RELAX fallback (comportamento legado)
+    2) Com lexicon: usa expand_query + grupos (STRICT_GROUPS / RELAX_GROUPS)
+       com gates de precisão (âncora hard, cobertura mínima e rare gate)
+    """
+    q = (query or "").strip()
+    if not q:
+        return []
+
+    vec_k = vec_k or max(20, top * 4)
+    lex_k = lex_k or max(20, top * 4)
+
+    # ---------------------------
+    # Lexicon runtime (fail-fast)
+    # ---------------------------
+    lexicon_path = (os.environ.get("UPTOWES_LEXICON") or "").strip()
+    lex = None
+    anchor_token: Optional[str] = None
+    must_groups: List[set[str]] = []
+    rare_group_ids: set[str] = set()
+    tsquery_str = ""
+    if lexicon_path:
+        try:
+            lex = load_lexicon(lexicon_path)
+            anchor_token, must_groups, rare_group_ids = lex.expand_query(q)
+            tsquery_str = build_tsquery_from_groups(must_groups)
+        except Exception as exc:
+            raise RuntimeError(f"Failed to load lexicon from '{lexicon_path}'") from exc
+
+    # ---------------------------
+    # Lex retrieval
+    # ---------------------------
+    lex_rows: List[Dict[str, Any]] = []
+    lex_mode = "NONE"
+
+    if lex:
+        use_unaccent = _has_unaccent(conn)
+        anchor_group: set[str] = set(must_groups[0]) if must_groups else ({anchor_token} if anchor_token else set())
+        rare_groups: List[set[str]] = []
+        if rare_group_ids:
+            for gid in sorted(rare_group_ids):
+                g = lex.groups.get(gid) or {}
+                variants = {str(v) for v in (g.get("variants") or []) if str(v).strip()}
+                if variants:
+                    rare_groups.append(variants)
+
+        total_groups = len(must_groups)
+        strict_min_group_hits = total_groups
+        relax_min_group_hits = total_groups if total_groups < 3 else int(math.ceil(0.67 * total_groups))
+
+        def _apply_group_gates(rows: List[Dict[str, Any]], min_group_hits: int) -> List[Dict[str, Any]]:
+            if not rows:
+                return []
+
+            kept: List[Dict[str, Any]] = []
+            for r in rows:
+                txt = str(r.get("text") or "")
+
+                # anchor hard: precisa bater no grupo âncora
+                if anchor_group and group_coverage(txt, [anchor_group]) < 1:
+                    continue
+
+                # cobertura mínima de must_groups
+                if must_groups and min_group_hits > 0 and group_coverage(txt, must_groups) < min_group_hits:
+                    continue
+
+                # rare gate: se houver grupos raros, precisa bater ao menos 1
+                if rare_groups and group_coverage(txt, rare_groups) < 1:
+                    continue
+
+                kept.append(r)
+
+            return kept
+
+        # STRICT_GROUPS: AND entre grupos (OR dentro de grupo) + cobertura 100%
+        if tsquery_str:
+            strict_rows_ct = _lex_search_groups(conn, "chunks_text", tsquery_str, lex_k, use_unaccent=use_unaccent)
+            strict_rows_tr = _lex_search_groups(conn, "table_rows", tsquery_str, lex_k, use_unaccent=use_unaccent)
+            strict_rows = _apply_group_gates(strict_rows_ct + strict_rows_tr, strict_min_group_hits)
+        else:
+            strict_rows = []
+
+        if strict_rows:
+            lex_rows = strict_rows
+            lex_mode = "STRICT_GROUPS"
+        else:
+            # RELAX_GROUPS: baseline STRICT/RELAX + gate mínimo por grupos
+            relax_rows_ct, _ = _lex_search_strict_or_relax(conn, "chunks_text", q, lex_k)
+            relax_rows_tr, _ = _lex_search_strict_or_relax(conn, "table_rows", q, lex_k)
+            relax_rows = _apply_group_gates(relax_rows_ct + relax_rows_tr, relax_min_group_hits)
+            if relax_rows:
+                lex_rows = relax_rows
+                lex_mode = "RELAX_GROUPS"
+    else:
+        # Sem lexicon: comportamento legado
+        lex_rows_ct, lex_mode_ct = _lex_search_strict_or_relax(conn, "chunks_text", q, lex_k)
+        lex_rows_tr, lex_mode_tr = _lex_search_strict_or_relax(conn, "table_rows", q, lex_k)
+        lex_rows = lex_rows_ct + lex_rows_tr
+        lex_mode = "RELAX" if ("RELAX" in (lex_mode_ct, lex_mode_tr)) else ("STRICT" if lex_rows else "NONE")
+
+    # ---------------------------
+    # Vector
+    # ---------------------------
+    vec_rows: List[Dict[str, Any]] = []
+    if enable_vector:
+        query_vec = ollama_embed(q, model=embed_model)
+        vec_rows = _vector_search(conn, "chunks_text", query_vec, vec_k) + _vector_search(conn, "table_rows", query_vec, vec_k)
+
+    vec_map: Dict[str, Dict[str, Any]] = {}
+    for r in vec_rows:
+        cid = r["chunk_id"]
+        r["score_vec"] = _clamp01(float(r.get("score_vec") or 0.0))
+        if cid not in vec_map or r["score_vec"] > vec_map[cid]["score_vec"]:
+            vec_map[cid] = r
+
+    # ---------------------------
+    # Normalize lex scores
+    # ---------------------------
+    lex_scores = [float(r.get("score_lex") or 0.0) for r in lex_rows]
+    norm = _normalize_scores(lex_scores)
+
+    lex_map: Dict[str, Dict[str, Any]] = {}
+    for r, s in zip(lex_rows, norm):
+        cid = r["chunk_id"]
+        r["score_lex"] = float(s)
+        if cid not in lex_map or r["score_lex"] > lex_map[cid]["score_lex"]:
+            lex_map[cid] = r
+
+    # Determinístico
+    all_ids = sorted(set(vec_map.keys()) | set(lex_map.keys()))
+
+    hits: List[Hit] = []
+    for cid in all_ids:
+        base = vec_map.get(cid) or lex_map.get(cid)
+        if not base:
+            continue
+
+        score_vec = float(vec_map.get(cid, {}).get("score_vec") or 0.0)
+        score_lex = float(lex_map.get(cid, {}).get("score_lex") or 0.0)
+        score = (w_vec * score_vec) + (w_lex * score_lex)
+
+        hits.append(
+            Hit(
+                source_table=str(base["source_table"]),
+                chunk_id=str(base["chunk_id"]),
+                doc_id=str(base["doc_id"]),
+                source_path=str(base["source_path"]),
+                locator=str(base["locator"]),
+                title=str(base["title"]),
+                chunk_type=str(base["chunk_type"]),
+                text=str(base["text"]),
+                score_vec=score_vec,
+                score_lex=score_lex,
+                score=score,
+                lex_mode=lex_mode,
+            )
+        )
+
+    hits.sort(key=lambda h: (-h.score, h.chunk_id))
+    return hits[:top]

@@ -1,0 +1,167 @@
+﻿# src/uptowes/lexicon_runtime.py
+from __future__ import annotations
+
+import importlib.util
+import re
+import unicodedata
+from dataclasses import dataclass
+from functools import lru_cache
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Set, Tuple
+
+
+WORD_RE = re.compile(r"[a-z0-9]+")
+
+
+def _deaccent(s: str) -> str:
+    s = unicodedata.normalize("NFKD", s)
+    return "".join(ch for ch in s if not unicodedata.combining(ch))
+
+
+def norm_text(s: str) -> str:
+    s = _deaccent((s or "").lower())
+    s = re.sub(r"[^a-z0-9]+", " ", s)
+    return re.sub(r"\s+", " ", s).strip()
+
+
+def tokens(s: str) -> List[str]:
+    return WORD_RE.findall(_deaccent((s or "").lower()))
+
+
+@dataclass(frozen=True)
+class LexRuntime:
+    groups: Dict[str, Dict[str, Any]]          # group_id -> {canonical, variants, flags...}
+    aliases: Dict[str, str]                    # token -> group_id
+    short_allow: Set[str]                      # allowlist tokens curtos
+
+    def expand_query(self, query: str) -> Tuple[Optional[str], List[Set[str]], Set[str]]:
+        """
+        Retorna:
+          anchor_token: token (normalizado) que é âncora (ex.: 'apendicite')
+          must_groups: lista de sets de termos (tokens) por grupo
+          rare_group_ids: ids de grupos raros presentes na query (exclui âncora)
+        """
+        q_toks = [t for t in tokens(query) if t]
+        if not q_toks:
+            return None, [], set()
+
+        # map token -> group_id (se existir)
+        present_gids: List[str] = []
+        for t in q_toks:
+            gid = self.aliases.get(t)
+            if gid and gid not in present_gids:
+                present_gids.append(gid)
+
+        if not present_gids:
+            # sem grupos: âncora vira primeiro token
+            return q_toks[0], [{q_toks[0]}], set()
+
+        # âncora: primeiro grupo com is_anchor_hint, senão o primeiro grupo presente
+        anchor_gid: Optional[str] = None
+        for gid in present_gids:
+            if bool(self.groups.get(gid, {}).get("is_anchor_hint")):
+                anchor_gid = gid
+                break
+        if anchor_gid is None:
+            anchor_gid = present_gids[0]
+
+        anchor_variants = set(self.groups[anchor_gid]["variants"])
+        # preferir canonical se existir; senão pega qualquer variante
+        anchor_token = self.groups[anchor_gid].get("canonical") or next(iter(anchor_variants))
+
+        must_groups: List[Set[str]] = []
+        rare_ids: Set[str] = set()
+
+        # Âncora primeiro (hard)
+        must_groups.append(anchor_variants)
+
+        for gid in present_gids:
+            if gid == anchor_gid:
+                continue
+            g = self.groups.get(gid) or {}
+            vset = set(g.get("variants") or [])
+            if not vset:
+                continue
+            must_groups.append(vset)
+            if bool(g.get("is_rare")):
+                rare_ids.add(gid)
+
+        return str(anchor_token), must_groups, rare_ids
+
+
+@lru_cache(maxsize=8)
+def load_lexicon(path_str: str) -> LexRuntime:
+    p = Path(path_str).resolve()
+    if not p.exists():
+        raise FileNotFoundError(str(p))
+
+    spec = importlib.util.spec_from_file_location("uptowes_lexicon_module", str(p))
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Could not import lexicon: {p}")
+
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+
+    groups = getattr(mod, "LEX_GROUPS", None)
+    aliases = getattr(mod, "LEX_ALIASES", None)
+    short_allow = getattr(mod, "SHORT_TOKEN_ALLOWLIST", set())
+
+    if not isinstance(groups, dict) or not isinstance(aliases, dict):
+        raise ValueError("Lexicon module must define LEX_GROUPS and LEX_ALIASES dicts")
+
+    # normalização defensiva: garantir tokens normalizados nos aliases/variants
+    norm_groups: Dict[str, Dict[str, Any]] = {}
+    for gid, g in groups.items():
+        if not isinstance(g, dict):
+            continue
+        variants = [norm_text(v) for v in (g.get("variants") or []) if str(v).strip()]
+        variants = [v for v in variants if v]  # remove vazios
+        # manter set mas voltar list determinística
+        variants = sorted(set(variants))
+        ng = dict(g)
+        ng["canonical"] = norm_text(g.get("canonical") or "")
+        ng["variants"] = variants
+        norm_groups[str(gid)] = ng
+
+    norm_aliases: Dict[str, str] = {}
+    for k, gid in aliases.items():
+        nk = norm_text(str(k))
+        if nk:
+            norm_aliases[nk] = str(gid)
+
+    short_allow_norm = {norm_text(x) for x in short_allow if norm_text(x)}
+    return LexRuntime(groups=norm_groups, aliases=norm_aliases, short_allow=short_allow_norm)
+
+
+def build_tsquery_from_groups(must_groups: List[Set[str]]) -> str:
+    """
+    Constrói string tsquery:
+      (a | b) & (c | d) & e
+    Assumimos que termos já estão normalizados (sem acento, lower, sem pontuação).
+    """
+    parts: List[str] = []
+    for g in must_groups:
+        terms = sorted({t for t in g if t})
+        if not terms:
+            continue
+        if len(terms) == 1:
+            parts.append(terms[0])
+        else:
+            parts.append("(" + " | ".join(terms) + ")")
+    return " & ".join(parts)
+
+
+def group_coverage(text: str, must_groups: List[Set[str]]) -> int:
+    """
+    Conta quantos grupos (sets) batem no texto (qualquer termo do grupo presente).
+    """
+    nt = " " + norm_text(text) + " "
+    hits = 0
+    for g in must_groups:
+        for t in g:
+            if not t:
+                continue
+            if f" {t} " in nt:
+                hits += 1
+                break
+    return hits

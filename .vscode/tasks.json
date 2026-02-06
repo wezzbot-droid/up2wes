@@ -1,0 +1,109 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "UpToWes: 01 Smoke (import uptowes)",
+      "type": "process",
+      "command": "${workspaceFolder}\\\\.venv\\\\Scripts\\\\python.exe",
+      "args": ["scripts\\\\smoke.py"],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": { "kind": "build", "isDefault": true },
+      "problemMatcher": []
+    },
+    {
+      "label": "UpToWes: 02 Doctor (env + imports)",
+      "type": "process",
+      "command": "${workspaceFolder}\\\\.venv\\\\Scripts\\\\python.exe",
+      "args": ["scripts\\\\doctor.py"],
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": []
+    },
+    {
+      "label": "UpToWes: 10 DB Up (docker compose up -d)",
+      "type": "shell",
+      "command": "docker compose up -d",
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": []
+    },
+    {
+      "label": "UpToWes: 11 DB Migrate",
+      "type": "process",
+      "command": "${workspaceFolder}\\\\.venv\\\\Scripts\\\\python.exe",
+      "args": ["scripts\\\\db_migrate.py"],
+      "options": { "cwd": "${workspaceFolder}" },
+      "dependsOn": ["UpToWes: 10 DB Up (docker compose up -d)"],
+      "dependsOrder": "sequence",
+      "problemMatcher": []
+    },
+    {
+      "label": "UpToWes: 20 Build Dataset (md_norm -> dataset/out)",
+      "type": "process",
+      "command": "${workspaceFolder}\\\\.venv\\\\Scripts\\\\python.exe",
+      "args": [
+        "scripts\\\\build_dataset.py",
+        "--input", "md_norm",
+        "--schema", "schemas\\\\dataset_chunk.schema.json",
+        "--out", "dataset\\\\out\\\\chunks.jsonl",
+        "--report", "dataset\\\\out\\\\build_report.json"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": []
+    },
+    {
+      "label": "UpToWes: 21 Ingest Pilot (dataset/out -> Postgres)",
+      "type": "process",
+      "command": "${workspaceFolder}\\\\.venv\\\\Scripts\\\\python.exe",
+      "args": ["scripts\\\\ingest_pilot.py", "--chunks", "dataset\\\\out\\\\chunks.jsonl"],
+      "options": { "cwd": "${workspaceFolder}" },
+      "dependsOn": ["UpToWes: 11 DB Migrate"],
+      "dependsOrder": "sequence",
+      "problemMatcher": []
+    },
+    {
+      "label": "UpToWes: 30 Pilot Queries (LEX_ONLY)",
+      "type": "process",
+      "command": "${workspaceFolder}\\\\.venv\\\\Scripts\\\\python.exe",
+      "args": ["scripts\\\\run_queries_pilot.py", "--lex-only"],
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": { "UPTOWES_LEXICON": "src\\uptowes\\lexicon\\ptbr_surgery_v1.py" }
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "UpToWes: 31 Query Pontual (hybrid/lex)",
+      "type": "process",
+      "command": "${workspaceFolder}\\\\.venv\\\\Scripts\\\\python.exe",
+      "args": [
+        "scripts\\\\query_hybrid.py",
+        "--lex-only",
+        "--query",
+        "${input:uptowes.query}",
+        "--top",
+        "8"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": { "UPTOWES_LEXICON": "src\\uptowes\\lexicon\\ptbr_surgery_v1.py" }
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "UpToWes: 40 Pytest (-q)",
+      "type": "process",
+      "command": "${workspaceFolder}\\\\.venv\\\\Scripts\\\\python.exe",
+      "args": ["-m", "pytest", "-q"],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": { "kind": "test", "isDefault": true },
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "uptowes.query",
+      "type": "promptString",
+      "description": "Pergunta para retrieval",
+      "default": "colecistite aguda criterios"
+    }
+  ]
+}
