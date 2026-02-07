@@ -1,0 +1,38 @@
+{
+  "_meta": {
+    "version": "ptbr_core_v1",
+    "generated_at": "2026-02-07"
+  },
+  "LEX_GROUPS": {
+    "g_colelitiase": {
+      "canonical": "colelitíase",
+      "variants": [
+        "colelitíase",
+        "colelitiase",
+        "coledoco",
+        "nódulo"
+      ],
+      "is_anchor_hint": true
+    },
+    "g_ipmn": {
+      "canonical": "ipmn",
+      "variants": [
+        "ipmn",
+        "ducto principal",
+        "wirsung"
+      ]
+    }
+  },
+  "LEX_ALIASES": {
+    "colelitíase": "g_colelitiase",
+    "colelitiase": "g_colelitiase",
+    "coledoco": "g_colelitiase",
+    "ipmn": "g_ipmn",
+    "ab": "g_ipmn",
+    "abc": "g_ipmn",
+    "a": "g_ipmn",
+    "thead": "g_ipmn",
+    "nódulo": "g_ipmn"
+  },
+  "SHORT_TOKEN_ALLOWLIST": []
+}

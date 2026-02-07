@@ -1,0 +1,25 @@
+{
+  "_meta": {
+    "version": "ptbr_core_v1",
+    "generated_at": "2026-02-07"
+  },
+  "LEX_GROUPS": {
+    "g_a": {
+      "canonical": "coledoco",
+      "variants": [
+        "coledoco"
+      ]
+    },
+    "g_b": {
+      "canonical": "colelitiase",
+      "variants": [
+        "colelitiase"
+      ]
+    }
+  },
+  "LEX_ALIASES": {
+    "colelitiase": "g_a",
+    "colelitíase": "g_b"
+  },
+  "SHORT_TOKEN_ALLOWLIST": []
+}

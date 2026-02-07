@@ -1,15 +1,16 @@
-{"id":"Q01","bucket":"A","query":"apendicite aguda escala de alvarado","expect_hit":true}
-{"id":"Q02","bucket":"A","query":"apendicite complicacoes antibioticoterapia","expect_hit":true}
-{"id":"Q03","bucket":"A","query":"colecistite aguda tokyo 2018 diagnostico","expect_hit":true}
-{"id":"Q04","bucket":"A","query":"colangite criterios de tokyo","expect_hit":true}
-{"id":"Q05","bucket":"A","query":"coledocolitiase indicacao cpre","expect_hit":true}
-{"id":"Q06","bucket":"B","query":"trauma esplenico estavel conduta nao operatoria","expect_hit":false}
-{"id":"Q07","bucket":"B","query":"pancreatite aguda necrose classificacao atlanta","expect_hit":false}
-{"id":"Q08","bucket":"B","query":"hernia inguinal assintomatica conduta conservadora","expect_hit":false}
-{"id":"Q09","bucket":"B","query":"estenose hipertrofica de piloro alcalose hipocloremica hipocalemica","expect_hit":false}
-{"id":"Q10","bucket":"B","query":"melanoma breslow 2mm margem ampliacao cirurgica","expect_hit":false}
-{"id":"Q11","bucket":"C","query":"UPTOWES_TEST_TOKEN_OMEGA_9 cirurgia","expect_hit":false}
-{"id":"Q12","bucket":"C","query":"doenca inexistente zephyr-7 protocolo","expect_hit":false}
-{"id":"Q13","bucket":"C","query":"qxzvptowes_unfindable_term_12345","expect_hit":false}
-{"id":"Q14","bucket":"C","query":"sindrome do jacare violeta tratamento guideline","expect_hit":false}
-{"id":"Q15","bucket":"C","query":"procedimento fantasma kappa-psi-404 dose","expect_hit":false}
+{"id":"Q01","bucket":"A","query":"apendicite alvarado escala","expect_hit":true}
+{"id":"Q02","bucket":"A","query":"colecistite tokyo 2018","expect_hit":true}
+{"id":"Q03","bucket":"A","query":"sindrome mirizzi csendes","expect_hit":true}
+{"id":"Q04","bucket":"A","query":"colangite criterios diagnostico","expect_hit":true}
+{"id":"Q05","bucket":"A","query":"coledocolitiase preditores","expect_hit":true}
+
+{"id":"Q10","bucket":"B","query":"cetoacidose diabetica mucormicose anfotericina","expect_hit":false}
+{"id":"NB01","bucket":"B","query":"polimiosite anti-jo1 fraqueza proximal","expect_hit":false}
+{"id":"NB02","bucket":"B","query":"dermatomiosite heliotropo gottron","expect_hit":false}
+{"id":"NB03","bucket":"B","query":"tofo gotoso podagra colchicina","expect_hit":false}
+
+{"id":"Q11","bucket":"C","query":"zzqvnmptla qxjrtvplmz kpwzvtnqla","expect_hit":false}
+{"id":"Q12","bucket":"C","query":"rptnqvzla mxqplvtrnz zvnqlptrmx","expect_hit":false}
+{"id":"Q13","bucket":"C","query":"kqzvptrnml wmxnqptrvz jqlvznptrm","expect_hit":false}
+{"id":"Q14","bucket":"C","query":"xvptrnqzlm nqzlmvptrx ptrxqzlmvn","expect_hit":false}
+{"id":"Q15","bucket":"C","query":"mznqplvtrx vtrxqzlmnp qzlmnpvtrx","expect_hit":false}

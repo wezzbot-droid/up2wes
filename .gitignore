@@ -14,3 +14,13 @@ dataset/build_report.json
 **/*_raw.md
 **/*raw*.md
 dataset/private_raw/
+
+# local links / imports
+_from_claude/
+
+# generated lexicon build artifacts
+src/uptowes/lexicon/build_reports/*.json
+
+# local backups
+backup/
+*.bundle

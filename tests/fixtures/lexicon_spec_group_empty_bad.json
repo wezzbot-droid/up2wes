@@ -1,0 +1,30 @@
+{
+  "_meta": {
+    "version": "ptbr_core_v1",
+    "generated_at": "2026-02-07"
+  },
+  "LEX_GROUPS": {
+    "g_empty": {
+      "canonical": "de",
+      "variants": [
+        "de",
+        "mg",
+        "thead",
+        "nódulo"
+      ]
+    },
+    "g_ok": {
+      "canonical": "ipmn",
+      "variants": [
+        "ipmn",
+        "wirsung"
+      ]
+    }
+  },
+  "LEX_ALIASES": {
+    "de": "g_empty",
+    "mg": "g_empty",
+    "ipmn": "g_ok"
+  },
+  "SHORT_TOKEN_ALLOWLIST": []
+}

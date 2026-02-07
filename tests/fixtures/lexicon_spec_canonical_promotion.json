@@ -1,0 +1,20 @@
+{
+  "_meta": {
+    "version": "ptbr_core_v1",
+    "generated_at": "2026-02-07"
+  },
+  "LEX_GROUPS": {
+    "g_obstrucao": {
+      "canonical": "obstrucao",
+      "variants": [
+        "obstrucao",
+        "ileo"
+      ]
+    }
+  },
+  "LEX_ALIASES": {
+    "obstrucao": "g_obstrucao",
+    "ileo": "g_obstrucao"
+  },
+  "SHORT_TOKEN_ALLOWLIST": []
+}

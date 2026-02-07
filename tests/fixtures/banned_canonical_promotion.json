@@ -1,0 +1,18 @@
+{
+  "banned_categories": {
+    "stopwords_pt": {
+      "tokens": []
+    },
+    "html_artifacts": {
+      "tokens": []
+    },
+    "units_numbers": {
+      "tokens": []
+    },
+    "ambiguous_cross_area": {
+      "tokens": [
+        "obstrucao"
+      ]
+    }
+  }
+}

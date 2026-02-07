@@ -31,12 +31,12 @@ def load_subset(jsonl_path: Path) -> list[dict]:
     return sorted(rows, key=lambda r: r["chunk_id"])
 
 
-def test_golden_fixtures(tmp_path: Path):
+def test_golden_fixtures(local_tmp_path: Path):
     repo_root = Path(__file__).resolve().parents[1]
 
     # Copia APENAS as 3 fixtures golden para um input temporário,
     # para não ser afetado por outros .md dentro de fixtures/ (ex.: fixture_colangite_raw.md)
-    input_dir = tmp_path / "golden_input"
+    input_dir = local_tmp_path / "golden_input"
     input_dir.mkdir(parents=True, exist_ok=True)
 
     fixtures_dir = repo_root / "fixtures"
@@ -45,8 +45,8 @@ def test_golden_fixtures(tmp_path: Path):
         assert src.exists(), f"Missing fixture: {src}"
         shutil.copyfile(src, input_dir / name)
 
-    out_jsonl = tmp_path / "chunks.jsonl"
-    report_json = tmp_path / "build_report.json"
+    out_jsonl = local_tmp_path / "chunks.jsonl"
+    report_json = local_tmp_path / "build_report.json"
 
     cmd = [
         sys.executable,

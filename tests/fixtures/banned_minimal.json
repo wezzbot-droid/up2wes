@@ -1,0 +1,32 @@
+{
+  "banned_categories": {
+    "stopwords_pt": {
+      "tokens": [
+        "de",
+        "do",
+        "da"
+      ]
+    },
+    "html_artifacts": {
+      "tokens": [
+        "thead",
+        "tbody",
+        "nbsp"
+      ]
+    },
+    "units_numbers": {
+      "tokens": [
+        "mg",
+        "ml",
+        "kg",
+        "100"
+      ]
+    },
+    "ambiguous_cross_area": {
+      "tokens": [
+        "nodulo",
+        "nodulos"
+      ]
+    }
+  }
+}

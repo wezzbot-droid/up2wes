@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import sys
 from pathlib import Path
@@ -40,6 +41,34 @@ def pick_doc_ids(chunks_path: Path, limit_docs: int, doc_ids_file: Optional[Path
         seen.add(ch["doc_id"])
     ids = sorted(seen)
     return ids[:limit_docs] if limit_docs > 0 else ids
+
+
+def build_doc_source_map(chunks_path: Path, selected_doc_ids: Set[str]) -> Dict[str, str]:
+    out: Dict[str, str] = {}
+    for ch in iter_jsonl(chunks_path):
+        doc_id = str(ch.get("doc_id") or "")
+        if doc_id not in selected_doc_ids:
+            continue
+        if doc_id in out:
+            continue
+        src = str(((ch.get("source") or {}).get("path") or "")).strip()
+        out[doc_id] = src
+        if len(out) == len(selected_doc_ids):
+            break
+    return out
+
+
+def delete_existing_for_docs(conn, doc_ids: List[str]) -> Dict[str, int]:
+    if not doc_ids:
+        return {"documents": 0, "chunks_text": 0, "table_rows": 0}
+    with conn.cursor() as cur:
+        cur.execute("DELETE FROM table_rows WHERE doc_id = ANY(%s);", (doc_ids,))
+        deleted_table = int(cur.rowcount or 0)
+        cur.execute("DELETE FROM chunks_text WHERE doc_id = ANY(%s);", (doc_ids,))
+        deleted_text = int(cur.rowcount or 0)
+        cur.execute("DELETE FROM documents WHERE doc_id = ANY(%s);", (doc_ids,))
+        deleted_docs = int(cur.rowcount or 0)
+    return {"documents": deleted_docs, "chunks_text": deleted_text, "table_rows": deleted_table}
 
 
 def upsert_document(cur, doc_id: str, source_path: str) -> None:
@@ -180,6 +209,11 @@ def main() -> int:
     ap.add_argument("--embed", action="store_true", help="Compute embeddings during ingest (requires Ollama)")
     ap.add_argument("--embed-model", default="nomic-embed-text")
     ap.add_argument("--commit-every", type=int, default=500, help="Commit every N inserts")
+    ap.add_argument(
+        "--skip-clean-existing",
+        action="store_true",
+        help="Skip deleting selected doc_ids before ingest (default: clean for idempotent pilot).",
+    )
     args = ap.parse_args()
 
     chunks_path = Path(args.chunks).resolve()
@@ -190,13 +224,18 @@ def main() -> int:
     doc_ids_file = Path(args.doc_ids_file).resolve() if args.doc_ids_file else None
     doc_ids = pick_doc_ids(chunks_path, args.limit_docs, doc_ids_file)
     doc_set = set(doc_ids)
+    selected_ids_sha1 = hashlib.sha1("\n".join(doc_ids).encode("utf-8")).hexdigest() if doc_ids else "0" * 40
 
     print(f"[OK] Pilot doc_ids selected: {len(doc_ids)}")
+    print(f"[OK] selected_doc_ids_sha1={selected_ids_sha1}")
     print("  " + "\n  ".join(doc_ids[:10]) + ("" if len(doc_ids) <= 10 else "\n  ..."))
 
     inserted = 0
     inserted_text = 0
     inserted_table = 0
+    inserted_documents = 0
+    deleted_existing = {"documents": 0, "chunks_text": 0, "table_rows": 0}
+    doc_source_map = build_doc_source_map(chunks_path, doc_set)
 
     with connect() as conn:
         with conn.cursor() as cur:
@@ -206,19 +245,33 @@ def main() -> int:
                 print("[FATAL] DB tables not found. Run: python scripts/db_migrate.py")
                 return 1
 
+        if not args.skip_clean_existing and doc_ids:
+            deleted_existing = delete_existing_for_docs(conn, doc_ids)
+            conn.commit()
+            print(
+                "[OK] deleted_existing: "
+                f"documents={deleted_existing['documents']} "
+                f"chunks_text={deleted_existing['chunks_text']} "
+                f"table_rows={deleted_existing['table_rows']}"
+            )
+
         pending = 0
         pbar = tqdm(total=None, desc="ingest", unit="chunk")
 
         try:
             with conn.cursor() as cur:
+                for doc_id in doc_ids:
+                    source_path = doc_source_map.get(doc_id) or doc_id
+                    upsert_document(cur, doc_id, source_path)
+                    inserted_documents += 1
+                conn.commit()
+
                 for ch in iter_jsonl(chunks_path):
                     if ch["doc_id"] not in doc_set:
                         continue
 
                     if args.max_chunks and inserted >= args.max_chunks:
                         break
-
-                    upsert_document(cur, ch["doc_id"], ch["source"]["path"])
 
                     embedding = None
                     if args.embed:
@@ -252,7 +305,10 @@ def main() -> int:
         finally:
             pbar.close()
 
-    print(f"[OK] inserted_total={inserted} text={inserted_text} table_rows={inserted_table}")
+    print(
+        "[OK] inserted_total: "
+        f"documents={inserted_documents} chunks_text={inserted_text} table_rows={inserted_table} rows={inserted}"
+    )
     return 0
 
 

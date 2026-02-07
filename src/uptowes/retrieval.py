@@ -30,7 +30,7 @@ class Hit:
     score_vec: float
     score_lex: float
     score: float
-    lex_mode: str                  # STRICT | RELAX | STRICT_GROUPS | RELAX_GROUPS | NONE
+    lex_mode: str                  # STRICT_GROUPS | RELAX_GROUPS | GROUPS_QUERY_POOR | STRICT | RELAX | NONE
     lex_tsquery_groups_str: str = ""
     lex_rest_text: str = ""
 
@@ -69,6 +69,9 @@ _DISCRIMINATIVE_WHITELIST = {
     "apache",
     "ranson",
 }
+_TRUE_ENV_VALUES = {"1", "true", "yes", "on"}
+_LEGACY_LEX_MODES = {"STRICT", "RELAX", "LEGACY_NO_LEXICON"}
+_REQUIRE_LEXICON_ENV = "UPTOWES_RETRIEVAL_REQUIRE_LEXICON"
 
 
 def _clamp01(x: float) -> float:
@@ -77,6 +80,11 @@ def _clamp01(x: float) -> float:
     if x > 1.0:
         return 1.0
     return x
+
+
+def _is_truthy_env(name: str) -> bool:
+    raw = (os.environ.get(name) or "").strip().lower()
+    return raw in _TRUE_ENV_VALUES
 
 
 def _normalize_scores(scores: List[float]) -> List[float]:
@@ -168,17 +176,75 @@ def _has_unaccent(conn: psycopg.Connection) -> bool:
         return cur.fetchone() is not None
 
 
-def _vector_search(conn: psycopg.Connection, table: str, query_vec: list[float], limit: int) -> List[Dict[str, Any]]:
-    if table == "chunks_text":
+def _to_pgvector_literal(values: List[float]) -> str:
+    if not values:
+        raise ValueError("query_vec must not be empty")
+
+    parts: List[str] = []
+    for v in values:
+        fv = float(v)
+        if not math.isfinite(fv):
+            raise ValueError("query_vec contains non-finite values")
+        parts.append(f"{fv:.17g}")
+    return "[" + ",".join(parts) + "]"
+
+
+def _source_like_param(source_prefix: Optional[str]) -> Optional[str]:
+    p = (source_prefix or "").strip()
+    if not p:
+        return None
+    return f"{p}%"
+
+
+def _vector_search(
+    conn: psycopg.Connection,
+    table: str,
+    query_vec: list[float],
+    limit: int,
+    source_prefix: Optional[str] = None,
+) -> List[Dict[str, Any]]:
+    vec_literal = _to_pgvector_literal(query_vec)
+    source_like = _source_like_param(source_prefix)
+    if source_like and table == "chunks_text":
+        sql = """
+        WITH scope AS (SELECT %s::text AS source_prefix),
+             qv AS (SELECT %s::vector AS v)
+        SELECT
+          'chunks_text' AS source_table,
+          chunk_id, doc_id, source_path, locator, title, chunk_type,
+          text_canonical AS text,
+          (1 - (embedding <=> qv.v)) AS score_vec
+        FROM chunks_text, scope, qv
+        WHERE embedding IS NOT NULL
+          AND source_path LIKE scope.source_prefix
+        ORDER BY embedding <=> qv.v
+        LIMIT %s;
+        """
+    elif source_like and table == "table_rows":
+        sql = """
+        WITH scope AS (SELECT %s::text AS source_prefix),
+             qv AS (SELECT %s::vector AS v)
+        SELECT
+          'table_rows' AS source_table,
+          chunk_id, doc_id, source_path, locator, title, chunk_type,
+          row_text_canonical AS text,
+          (1 - (embedding <=> qv.v)) AS score_vec
+        FROM table_rows, scope, qv
+        WHERE embedding IS NOT NULL
+          AND source_path LIKE scope.source_prefix
+        ORDER BY embedding <=> qv.v
+        LIMIT %s;
+        """
+    elif table == "chunks_text":
         sql = """
         SELECT
           'chunks_text' AS source_table,
           chunk_id, doc_id, source_path, locator, title, chunk_type,
           text_canonical AS text,
-          (1 - (embedding <=> %s)) AS score_vec
+          (1 - (embedding <=> %s::vector)) AS score_vec
         FROM chunks_text
         WHERE embedding IS NOT NULL
-        ORDER BY embedding <=> %s
+        ORDER BY embedding <=> %s::vector
         LIMIT %s;
         """
     else:
@@ -187,20 +253,29 @@ def _vector_search(conn: psycopg.Connection, table: str, query_vec: list[float],
           'table_rows' AS source_table,
           chunk_id, doc_id, source_path, locator, title, chunk_type,
           row_text_canonical AS text,
-          (1 - (embedding <=> %s)) AS score_vec
+          (1 - (embedding <=> %s::vector)) AS score_vec
         FROM table_rows
         WHERE embedding IS NOT NULL
-        ORDER BY embedding <=> %s
+        ORDER BY embedding <=> %s::vector
         LIMIT %s;
         """
 
     with conn.cursor() as cur:
-        cur.execute(sql, (query_vec, query_vec, limit))
+        if source_like:
+            cur.execute(sql, (source_like, vec_literal, limit))
+        else:
+            cur.execute(sql, (vec_literal, vec_literal, limit))
         cols = [c.name for c in cur.description]
         return [dict(zip(cols, row)) for row in cur.fetchall()]
 
 
-def _lex_search_strict_or_relax(conn: psycopg.Connection, table: str, query: str, limit: int) -> Tuple[List[Dict[str, Any]], str]:
+def _lex_search_strict_or_relax(
+    conn: psycopg.Connection,
+    table: str,
+    query: str,
+    limit: int,
+    source_prefix: Optional[str] = None,
+) -> Tuple[List[Dict[str, Any]], str]:
     """
     Deterministic lexical strategy:
     1) STRICT: plainto_tsquery (AND)
@@ -211,6 +286,7 @@ def _lex_search_strict_or_relax(conn: psycopg.Connection, table: str, query: str
     q = (query or "").strip()
     if not q:
         return ([], "NONE")
+    source_like = _source_like_param(source_prefix)
 
     use_unaccent = _has_unaccent(conn)
 
@@ -219,40 +295,53 @@ def _lex_search_strict_or_relax(conn: psycopg.Connection, table: str, query: str
 
     if table == "chunks_text":
         text_col = "text_canonical"
+        from_expr = "chunks_text, q" if not source_like else "chunks_text, q, scope"
+        source_filter = "" if not source_like else "\n          AND source_path LIKE scope.source_prefix"
         base_sql = f"""
         SELECT
           'chunks_text' AS source_table,
           chunk_id, doc_id, source_path, locator, title, chunk_type,
           {text_col} AS text,
           ts_rank_cd({tsv_col}, q.tq) AS score_lex
-        FROM chunks_text, q
+        FROM {from_expr}
         WHERE {tsv_col} @@ q.tq
+          {source_filter}
         ORDER BY score_lex DESC
         LIMIT %s;
         """
     else:
         text_col = "row_text_canonical"
+        from_expr = "table_rows, q" if not source_like else "table_rows, q, scope"
+        source_filter = "" if not source_like else "\n          AND source_path LIKE scope.source_prefix"
         base_sql = f"""
         SELECT
           'table_rows' AS source_table,
           chunk_id, doc_id, source_path, locator, title, chunk_type,
           {text_col} AS text,
           ts_rank_cd({tsv_col}, q.tq) AS score_lex
-        FROM table_rows, q
+        FROM {from_expr}
         WHERE {tsv_col} @@ q.tq
+          {source_filter}
         ORDER BY score_lex DESC
         LIMIT %s;
         """
 
     # STRICT (AND)
-    if use_unaccent:
+    if use_unaccent and source_like:
+        strict_cte = "WITH scope AS (SELECT %s::text AS source_prefix), q AS (SELECT plainto_tsquery('portuguese', unaccent(%s)) AS tq)"
+    elif use_unaccent:
         strict_cte = "WITH q AS (SELECT plainto_tsquery('portuguese', unaccent(%s)) AS tq)"
+    elif source_like:
+        strict_cte = "WITH scope AS (SELECT %s::text AS source_prefix), q AS (SELECT plainto_tsquery('portuguese', %s) AS tq)"
     else:
         strict_cte = "WITH q AS (SELECT plainto_tsquery('portuguese', %s) AS tq)"
     strict_sql = strict_cte + "\n" + base_sql
 
     with conn.cursor() as cur:
-        cur.execute(strict_sql, (q, limit))
+        if source_like:
+            cur.execute(strict_sql, (source_like, q, limit))
+        else:
+            cur.execute(strict_sql, (q, limit))
         rows = cur.fetchall()
         if rows:
             cols = [c.name for c in cur.description]
@@ -264,14 +353,21 @@ def _lex_search_strict_or_relax(conn: psycopg.Connection, table: str, query: str
         tokens = [q]
     q_or = " OR ".join(tokens)
 
-    if use_unaccent:
+    if use_unaccent and source_like:
+        relax_cte = "WITH scope AS (SELECT %s::text AS source_prefix), q AS (SELECT websearch_to_tsquery('portuguese', unaccent(%s)) AS tq)"
+    elif use_unaccent:
         relax_cte = "WITH q AS (SELECT websearch_to_tsquery('portuguese', unaccent(%s)) AS tq)"
+    elif source_like:
+        relax_cte = "WITH scope AS (SELECT %s::text AS source_prefix), q AS (SELECT websearch_to_tsquery('portuguese', %s) AS tq)"
     else:
         relax_cte = "WITH q AS (SELECT websearch_to_tsquery('portuguese', %s) AS tq)"
     relax_sql = relax_cte + "\n" + base_sql
 
     with conn.cursor() as cur:
-        cur.execute(relax_sql, (q_or, limit))
+        if source_like:
+            cur.execute(relax_sql, (source_like, q_or, limit))
+        else:
+            cur.execute(relax_sql, (q_or, limit))
         cols = [c.name for c in cur.description]
         return ([dict(zip(cols, r)) for r in cur.fetchall()], "RELAX")
 
@@ -283,6 +379,7 @@ def _lex_search_groups(
     rest_text: str,
     limit: int,
     use_unaccent: bool = True,
+    source_prefix: Optional[str] = None,
 ) -> List[Dict[str, Any]]:
     """
     Busca lexical usando um tsquery já montado (AND/OR).
@@ -296,6 +393,10 @@ def _lex_search_groups(
     else:
         text_col = "row_text_canonical"
 
+    source_like = _source_like_param(source_prefix)
+    scope_join = "CROSS JOIN scope\n" if source_like else ""
+    source_filter = "\n  AND c.source_path LIKE scope.source_prefix" if source_like else ""
+
     base_sql = f"""
 SELECT
   '{table}'::text AS source_table,
@@ -308,15 +409,30 @@ SELECT
   {text_col} AS text,
   (ts_rank({tsv_col}, q.qg) + 0.25 * ts_rank({tsv_col}, q.qr)) AS score_lex
 FROM {table} c
-CROSS JOIN q
+{scope_join}CROSS JOIN q
 WHERE
   q.qg <> ''::tsquery
   AND c.{tsv_col} @@ q.qg
+  {source_filter}
 ORDER BY score_lex DESC, c.chunk_id ASC
 LIMIT %s
 """.strip()
 
-    if use_unaccent:
+    if use_unaccent and source_like:
+        cte = """
+WITH scope AS (
+  SELECT %s::text AS source_prefix
+),
+q AS (
+  SELECT
+    to_tsquery('portuguese', unaccent(%s)) AS qg,
+    CASE
+      WHEN %s = '' THEN ''::tsquery
+      ELSE plainto_tsquery('portuguese', unaccent(%s))
+    END AS qr
+)
+""".strip()
+    elif use_unaccent:
         cte = """
 WITH q AS (
   SELECT
@@ -324,6 +440,20 @@ WITH q AS (
     CASE
       WHEN %s = '' THEN ''::tsquery
       ELSE plainto_tsquery('portuguese', unaccent(%s))
+    END AS qr
+)
+""".strip()
+    elif source_like:
+        cte = """
+WITH scope AS (
+  SELECT %s::text AS source_prefix
+),
+q AS (
+  SELECT
+    to_tsquery('portuguese', %s) AS qg,
+    CASE
+      WHEN %s = '' THEN ''::tsquery
+      ELSE plainto_tsquery('portuguese', %s)
     END AS qr
 )
 """.strip()
@@ -342,7 +472,10 @@ WITH q AS (
     sql = cte + "\n" + base_sql
 
     with conn.cursor() as cur:
-        cur.execute(sql, (tsquery_str, rest_text, rest_text, limit))
+        if source_like:
+            cur.execute(sql, (source_like, tsquery_str, rest_text, rest_text, limit))
+        else:
+            cur.execute(sql, (tsquery_str, rest_text, rest_text, limit))
         cols = [c.name for c in cur.description]
         return [dict(zip(cols, r)) for r in cur.fetchall()]
 
@@ -357,6 +490,8 @@ def hybrid_search(
     lex_k: Optional[int] = None,
     embed_model: Optional[str] = None,
     enable_vector: bool = True,
+    require_lexicon: Optional[bool] = None,
+    source_prefix: Optional[str] = None,
 ) -> List[Hit]:
     """
     Retrieval híbrido (lex + vetor), com estratégia determinística:
@@ -369,6 +504,11 @@ def hybrid_search(
     if not q:
         return []
 
+    if require_lexicon is None:
+        require_lexicon = _is_truthy_env(_REQUIRE_LEXICON_ENV)
+    else:
+        require_lexicon = bool(require_lexicon)
+
     vec_k = vec_k or max(20, top * 4)
     lex_k = lex_k or max(20, top * 4)
 
@@ -376,7 +516,11 @@ def hybrid_search(
     # Lexicon runtime (fail-fast)
     # ---------------------------
     lexicon_path = (os.environ.get("UPTOWES_LEXICON") or "").strip()
+    if require_lexicon and not lexicon_path:
+        raise RuntimeError("require-lexicon enabled but UPTOWES_LEXICON is not set.")
+
     lex = None
+    expand_called = False
     anchor_token: Optional[str] = None
     must_groups: List[set[str]] = []
     rare_group_ids: set[str] = set()
@@ -388,6 +532,7 @@ def hybrid_search(
         try:
             lex = load_lexicon(lexicon_path)
             expanded = lex.expand_query(q)
+            expand_called = True
             if isinstance(expanded, tuple) and len(expanded) >= 4:
                 anchor_token = expanded[0]
                 must_groups = expanded[1]
@@ -418,6 +563,16 @@ def hybrid_search(
                 tsquery_groups_str = base_groups_tsquery
         except Exception as exc:
             raise RuntimeError(f"Failed to load lexicon from '{lexicon_path}'") from exc
+
+    if require_lexicon:
+        if lex is None:
+            raise RuntimeError("require-lexicon enabled but lexicon runtime is unavailable.")
+        if not expand_called:
+            raise RuntimeError("require-lexicon enabled but lex.expand_query() was not executed.")
+        if not must_groups:
+            raise RuntimeError("require-lexicon enabled but lex.expand_query() returned empty must_groups.")
+        if not (tsquery_groups_str or "").strip():
+            raise RuntimeError("require-lexicon enabled but build_tsquery_from_groups() returned empty query.")
 
     # ---------------------------
     # Lex retrieval
@@ -481,6 +636,7 @@ def hybrid_search(
                 rest_text,
                 strict_fetch_k,
                 use_unaccent=use_unaccent,
+                source_prefix=source_prefix,
             )
             strict_rows_tr = _lex_search_groups(
                 conn,
@@ -489,13 +645,18 @@ def hybrid_search(
                 rest_text,
                 strict_fetch_k,
                 use_unaccent=use_unaccent,
+                source_prefix=source_prefix,
             )
             strict_groups_rows = strict_rows_ct + strict_rows_tr
 
         strict_rest_rows: List[Dict[str, Any]] = []
         if rest_text:
-            strict_rest_ct, strict_mode_ct = _lex_search_strict_or_relax(conn, "chunks_text", rest_text, strict_fetch_k)
-            strict_rest_tr, strict_mode_tr = _lex_search_strict_or_relax(conn, "table_rows", rest_text, strict_fetch_k)
+            strict_rest_ct, strict_mode_ct = _lex_search_strict_or_relax(
+                conn, "chunks_text", rest_text, strict_fetch_k, source_prefix=source_prefix
+            )
+            strict_rest_tr, strict_mode_tr = _lex_search_strict_or_relax(
+                conn, "table_rows", rest_text, strict_fetch_k, source_prefix=source_prefix
+            )
             if strict_mode_ct == "STRICT":
                 strict_rest_rows.extend(strict_rest_ct)
             if strict_mode_tr == "STRICT":
@@ -524,26 +685,43 @@ def hybrid_search(
         else:
             if groups_query_poor:
                 # Fallback seguro: evita query de grupos genérica (ex.: apenas "sindrome").
-                fallback_rows_ct, mode_ct = _lex_search_strict_or_relax(conn, "chunks_text", q, lex_k)
-                fallback_rows_tr, mode_tr = _lex_search_strict_or_relax(conn, "table_rows", q, lex_k)
+                fallback_rows_ct, _ = _lex_search_strict_or_relax(
+                    conn, "chunks_text", q, lex_k, source_prefix=source_prefix
+                )
+                fallback_rows_tr, _ = _lex_search_strict_or_relax(
+                    conn, "table_rows", q, lex_k, source_prefix=source_prefix
+                )
                 fallback_rows = fallback_rows_ct + fallback_rows_tr
                 if fallback_rows:
                     lex_rows = fallback_rows
-                    lex_mode = "RELAX" if ("RELAX" in (mode_ct, mode_tr)) else "STRICT"
+                    lex_mode = "GROUPS_QUERY_POOR"
             else:
                 # RELAX_GROUPS: baseline STRICT/RELAX + gate mínimo por grupos
-                relax_rows_ct, _ = _lex_search_strict_or_relax(conn, "chunks_text", q, lex_k)
-                relax_rows_tr, _ = _lex_search_strict_or_relax(conn, "table_rows", q, lex_k)
+                relax_rows_ct, _ = _lex_search_strict_or_relax(
+                    conn, "chunks_text", q, lex_k, source_prefix=source_prefix
+                )
+                relax_rows_tr, _ = _lex_search_strict_or_relax(
+                    conn, "table_rows", q, lex_k, source_prefix=source_prefix
+                )
                 relax_rows = _apply_group_gates(relax_rows_ct + relax_rows_tr, relax_min_group_hits)
                 if relax_rows:
                     lex_rows = relax_rows
                     lex_mode = "RELAX_GROUPS"
     else:
         # Sem lexicon: comportamento legado
-        lex_rows_ct, lex_mode_ct = _lex_search_strict_or_relax(conn, "chunks_text", q, lex_k)
-        lex_rows_tr, lex_mode_tr = _lex_search_strict_or_relax(conn, "table_rows", q, lex_k)
+        if require_lexicon:
+            raise RuntimeError("require-lexicon enabled but execution reached legacy no-lexicon path.")
+        lex_rows_ct, lex_mode_ct = _lex_search_strict_or_relax(
+            conn, "chunks_text", q, lex_k, source_prefix=source_prefix
+        )
+        lex_rows_tr, lex_mode_tr = _lex_search_strict_or_relax(
+            conn, "table_rows", q, lex_k, source_prefix=source_prefix
+        )
         lex_rows = lex_rows_ct + lex_rows_tr
         lex_mode = "RELAX" if ("RELAX" in (lex_mode_ct, lex_mode_tr)) else ("STRICT" if lex_rows else "NONE")
+
+    if require_lexicon and lex_mode in _LEGACY_LEX_MODES:
+        raise RuntimeError(f"require-lexicon enabled but retrieval entered legacy lex_mode={lex_mode}.")
 
     # ---------------------------
     # Vector
@@ -551,7 +729,9 @@ def hybrid_search(
     vec_rows: List[Dict[str, Any]] = []
     if enable_vector:
         query_vec = ollama_embed(q, model=embed_model)
-        vec_rows = _vector_search(conn, "chunks_text", query_vec, vec_k) + _vector_search(conn, "table_rows", query_vec, vec_k)
+        vec_rows = _vector_search(
+            conn, "chunks_text", query_vec, vec_k, source_prefix=source_prefix
+        ) + _vector_search(conn, "table_rows", query_vec, vec_k, source_prefix=source_prefix)
 
     vec_map: Dict[str, Dict[str, Any]] = {}
     for r in vec_rows:
